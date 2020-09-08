@@ -132,297 +132,300 @@
 </nav>
 
 <div class="container-xl">
-    <div class="row align-items-start no-gutters">
-        <div class="row  no-gutters">
-            <div class="col-md-6">
+    <div class="row  no-gutters">
+        <div class="col-6 col-md-6 overflow-auto">
 
-                <ul class="nav nav-tabs">
-                    <!-- Первая вкладка - Заказ (активная) -->
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
-                    </li>
-                    <!-- Вторая вкладка - Детали -->
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
-                    </li>
-                    <!-- Третья вкладка - Отметки -->
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
-                    </li>
-                </ul>
+            <ul class="nav nav-tabs">
+                <!-- Первая вкладка - Заказ (активная) -->
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
+                </li>
+                <!-- Вторая вкладка - Детали -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
+                </li>
+                <!-- Третья вкладка - Отметки -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
+                </li>
+            </ul>
 
-                <!-- Блоки с контентом -->
-                <div class="tab-content">
-                    <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                    <div class="tab-pane fade show active" id="order">
-                        <table class="table">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Наименование</th>
-                                <th scope="col">Кол.</th>
-                                <th scope="col">Цена</th>
-                                <th scope="col">Стоимость</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <!-- Блоки с контентом -->
+            <div class="tab-content">
+                <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
+                <div class="tab-pane fade show active" id="order">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Наименование</th>
+                            <th scope="col">Кол.</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col">Стоимость</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Второй блок - Детали -->
+                <div class="tab-pane fade" id="details">
+                    <table class="table">
+                        <tbody>
+                        <tr height="20">
+                            <td></td>
+                            <td width="90"></td>
+                            <td width="270"></td>
+                            <td width="40"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Филиал / Точка</td>
+                            <td colspan="2"><select id="billPoint" style="max-width:270px;"
+                                                    onchange="frontProductAffiliateSelect();">
+                                <option value=",">Сахарова, 31 - Доставка</option>
+                                <option value=",27">Сахарова, 31 - Зал</option>
+                                <option value=",28">Сахарова, 31 - С собой</option>
+                                <option value=",29">Сахарова, 31 - Сайт</option>
+                            </select></td>
+                        </tr>
+                        <tr height="20">
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Карта</td>
+                            <td colspan="2"><input id="billCard" value="" size="20" maxlength="16"
+                                                   autocomplete="off" class="input"> <span onclick="searchCard();"
+                                                                                           class="btn grey order">Найти</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Телефон</td>
+                            <td><input id="billPhone" value="" style="width:250px;" maxlength="50"
+                                       autocomplete="off" class="input ac_input"
+                                       onfocus="$(this).attr('info',$(this).val())"
+                                       onblur="if($(this).val()!=$(this).attr('info')&amp;&amp;$(this).attr('info')>0){billLoadSale();}"
+                                       info="" phone="off"></td>
+                            <td id="bill_client_buttons" align="left"></td>
+                        </tr>
 
-                    </div>
-                    <!-- Второй блок - Детали -->
-                    <div class="tab-pane fade" id="details">
-                        <table class="table">
-                            <tbody>
-                            <tr height="20">
-                                <td></td>
-                                <td width="90"></td>
-                                <td width="270"></td>
-                                <td width="40"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Филиал / Точка</td>
-                                <td colspan="2"><select id="billPoint" style="max-width:270px;"
-                                                        onchange="frontProductAffiliateSelect();">
-                                    <option value=",">Сахарова, 31 - Доставка</option>
-                                    <option value=",27">Сахарова, 31 - Зал</option>
-                                    <option value=",28">Сахарова, 31 - С собой</option>
-                                    <option value=",29">Сахарова, 31 - Сайт</option>
-                                </select></td>
-                            </tr>
-                            <tr height="20">
-                                <td colspan="4"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Карта</td>
-                                <td colspan="2"><input id="billCard" value="" size="20" maxlength="16"
-                                                       autocomplete="off" class="input"> <span onclick="searchCard();"
-                                                                                               class="btn grey order">Найти</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Телефон</td>
-                                <td><input id="billPhone" value="" style="width:250px;" maxlength="50"
-                                           autocomplete="off" class="input ac_input"
-                                           onfocus="$(this).attr('info',$(this).val())"
-                                           onblur="if($(this).val()!=$(this).attr('info')&amp;&amp;$(this).attr('info')>0){billLoadSale();}"
-                                           info="" phone="off"></td>
-                                <td id="bill_client_buttons" align="left"></td>
-                            </tr>
+                        <tr height="20">
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr class="tr_details" id="billNameTr">
+                            <td></td>
+                            <td>Имя</td>
+                            <td colspan="2"><input id="billName" value="" style="width:250px;" maxlength="50"
+                                                   autocomplete="off" class="input"></td>
+                        </tr>
+                        <tr id="billClientDescrTr" style="display:none;">
+                            <td></td>
+                            <td></td>
+                            <td colspan="2">
+                                <div id="billClientDescr" class="input" style="width:250px; overflow:auto;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Улица</td>
+                            <td colspan="2"><input id="billStreet" value="" style="width:250px; float:left;"
+                                                   maxlength="100" autocomplete="off" class="input ac_input"
+                                                   phone="off">
+                                <div id="dop_address_list"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Дом</td>
+                            <td colspan="2"><input id="billHome" value="" style="width:250px;" maxlength="50"
+                                                   autocomplete="off"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Подъезд</td>
+                            <td colspan="2"><input id="billPod" value="" size="5" maxlength="2" autocomplete="off"
+                            ></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Этаж</td>
+                            <td colspan="2"><input id="billEt" value="" size="5" maxlength="2" autocomplete="off"
+                            ></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Кв. (офис)</td>
+                            <td colspan="2"><input id="billKvart" value="" style="width:250px;" maxlength="50"
+                                                   autocomplete="off"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Примечание</td>
+                            <td colspan="2"><textarea id="billDescr" style="width:250px;" maxlength="250"
+                                                      autocomplete="off"></textarea></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                            <tr height="20">
-                                <td colspan="4"></td>
-                            </tr>
-                            <tr class="tr_details" id="billNameTr">
-                                <td></td>
-                                <td>Имя</td>
-                                <td colspan="2"><input id="billName" value="" style="width:250px;" maxlength="50"
-                                                       autocomplete="off" class="input"></td>
-                            </tr>
-                            <tr id="billClientDescrTr" style="display:none;">
-                                <td></td>
-                                <td></td>
-                                <td colspan="2">
-                                    <div id="billClientDescr" class="input" style="width:250px; overflow:auto;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Улица</td>
-                                <td colspan="2"><input id="billStreet" value="" style="width:250px; float:left;"
-                                                       maxlength="100" autocomplete="off" class="input ac_input"
-                                                       phone="off">
-                                    <div id="dop_address_list"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Дом</td>
-                                <td colspan="2"><input id="billHome" value="" style="width:250px;" maxlength="50"
-                                                       autocomplete="off"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Подъезд</td>
-                                <td colspan="2"><input id="billPod" value="" size="5" maxlength="2" autocomplete="off"
-                                ></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Этаж</td>
-                                <td colspan="2"><input id="billEt" value="" size="5" maxlength="2" autocomplete="off"
-                                ></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Кв. (офис)</td>
-                                <td colspan="2"><input id="billKvart" value="" style="width:250px;" maxlength="50"
-                                                       autocomplete="off"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Примечание</td>
-                                <td colspan="2"><textarea id="billDescr" style="width:250px;" maxlength="250"
-                                                          autocomplete="off"></textarea></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- Третий блок - Отметки -->
+                <div class="tab-pane fade" id="advanced">
 
-                    <!-- Третий блок - Отметки -->
-                    <div class="tab-pane fade" id="advanced">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr height="20">
+                            <td width="18"></td>
+                            <td width="90"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Позволяет создавать заказ на определенную
+                                дату. Предзаказ отображается как обычный заказ на дату предзаказа.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Предзаказ</td>
+                            <td align="left"><input id="billDatetime" name="billDatetime" class="input"
+                                                    style="width:140px;"> <span class="icon calendar"
+                                                                                onclick="displayDatePicker('billDatetime', false, 'dmy h:i:s', '.');"></span>
+                            </td>
+                        </tr>
+                        <tr class="tr_details" id="tr_prebill_list" style="display:none;">
+                            <td></td>
+                            <td></td>
+                            <td align="left" id="prebill_list"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">С помощью сертификата можно
+                                добавлять в заказ подарки или товары с заданной ценой.<br>Сертификаты создаются
+                                в соответствующем справочнике.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Сертификат</td>
+                            <td align="left"><input id="billCertificate" autocomplete="off" class="input"
+                                                    style="width:140px;"> <span onclick="searchCertificate();"
+                                                                                class="btn grey order">Найти</span>
+                            </td>
+                        </tr>
 
-                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                            <tbody>
-                            <tr height="20">
-                                <td width="18"></td>
-                                <td width="90"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">Позволяет создавать заказ на определенную
-                                    дату. Предзаказ отображается как обычный заказ на дату предзаказа.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Предзаказ</td>
-                                <td align="left"><input id="billDatetime" name="billDatetime" class="input"
-                                                        style="width:140px;"> <span class="icon calendar"
-                                                                                    onclick="displayDatePicker('billDatetime', false, 'dmy h:i:s', '.');"></span>
-                                </td>
-                            </tr>
-                            <tr class="tr_details" id="tr_prebill_list" style="display:none;">
-                                <td></td>
-                                <td></td>
-                                <td align="left" id="prebill_list"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">С помощью сертификата можно
-                                    добавлять в заказ подарки или товары с заданной ценой.<br>Сертификаты создаются
-                                    в соответствующем справочнике.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Сертификат</td>
-                                <td align="left"><input id="billCertificate" autocomplete="off" class="input"
-                                                        style="width:140px;"> <span onclick="searchCertificate();"
-                                                                                    class="btn grey order">Найти</span>
-                                </td>
-                            </tr>
-
-                            <tr class="tr_details">
-                                <td></td>
-                                <td>Узнали из</td>
-                                <td><select id="billChannel">
-                                    <option value="">Не выбрано</option>
-                                    <option value="269">foodsoul.pro</option>
-                                </select></td>
-                            </tr>
-                            <tr class="tr_details" align="left">
-                                <td></td>
-                                <td>Оплата</td>
-                                <td><select id="billPay" style="width:70px;">
-                                    <option value="0" selected="selected"></option>
-                                    <option value="1">Нал.</option>
-                                    <option value="2">Б/нал.</option>
-                                    <option value="30">Мобильный банк</option>
-                                    <option value="123">Картой курьеру</option>
-                                </select></td>
-                            </tr>
-                            <tr class="tr_details" height="20">
-                                <td colspan="4"></td>
-                            </tr>
-                            <tr class="tr_details" valign="top" align="left">
-                                <td></td>
-                                <td>Отметки</td>
-                                <td id="billTag"><span id="tag_217" onclick="btnSelect(this);"
-                                                       class="btn tag"> В зале</span><br><span id="tag_218"
-                                                                                               onclick="btnSelect(this);"
-                                                                                               class="btn tag"> Доставка</span><br><span
-                                        id="tag_216" onclick="btnSelect(this);" class="btn tag"> С собой</span><br><span
-                                        id="tag_3214" onclick="btnSelect(this);"
-                                        class="btn tag">Flamp 50%</span><br><span id="tag_3213"
-                                                                                  onclick="btnSelect(this);"
-                                                                                  class="btn tag">Gmoji</span><br><span
-                                        id="tag_724" onclick="btnSelect(this);"
-                                        class="btn tag">Домофон не работает</span><br><span id="tag_213"
-                                                                                            onclick="btnSelect(this);"
-                                                                                            class="btn tag">Оплата картой</span><br><span
-                                        id="tag_212" onclick="btnSelect(this);"
-                                        class="btn tag">Оплата наличными</span><br><span id="tag_927"
-                                                                                         onclick="btnSelect(this);"
-                                                                                         class="btn tag">Реклама</span><br>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
+                        <tr class="tr_details">
+                            <td></td>
+                            <td>Узнали из</td>
+                            <td><select id="billChannel">
+                                <option value="">Не выбрано</option>
+                                <option value="269">foodsoul.pro</option>
+                            </select></td>
+                        </tr>
+                        <tr class="tr_details" align="left">
+                            <td></td>
+                            <td>Оплата</td>
+                            <td><select id="billPay" style="width:70px;">
+                                <option value="0" selected="selected"></option>
+                                <option value="1">Нал.</option>
+                                <option value="2">Б/нал.</option>
+                                <option value="30">Мобильный банк</option>
+                                <option value="123">Картой курьеру</option>
+                            </select></td>
+                        </tr>
+                        <tr class="tr_details" height="20">
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr class="tr_details" valign="top" align="left">
+                            <td></td>
+                            <td>Отметки</td>
+                            <td id="billTag"><span id="tag_217" onclick="btnSelect(this);"
+                                                   class="btn tag"> В зале</span><br><span id="tag_218"
+                                                                                           onclick="btnSelect(this);"
+                                                                                           class="btn tag"> Доставка</span><br><span
+                                    id="tag_216" onclick="btnSelect(this);" class="btn tag"> С собой</span><br><span
+                                    id="tag_3214" onclick="btnSelect(this);"
+                                    class="btn tag">Flamp 50%</span><br><span id="tag_3213"
+                                                                              onclick="btnSelect(this);"
+                                                                              class="btn tag">Gmoji</span><br><span
+                                    id="tag_724" onclick="btnSelect(this);"
+                                    class="btn tag">Домофон не работает</span><br><span id="tag_213"
+                                                                                        onclick="btnSelect(this);"
+                                                                                        class="btn tag">Оплата картой</span><br><span
+                                    id="tag_212" onclick="btnSelect(this);"
+                                    class="btn tag">Оплата наличными</span><br><span id="tag_927"
+                                                                                     onclick="btnSelect(this);"
+                                                                                     class="btn tag">Реклама</span><br>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
 
-
             </div>
 
-            <!-- Force next columns to break to new line -->
-            <div class="w-100"></div>
 
-            <div class="col-md-6">
+        </div>
+
+        <div class="col-6 coll-md-6">
+            <div class="row no-gutters"">
+                <div class="col-3 col-md-3 bg-light overflow-hidden">
+                    <ul class="nav nav-tabs  flex-column">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
+                            Десерт</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
+                    </ul>
+                </div>
+                <div class="col-9 coll-md-9 overflow-auto">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="id_1">
+                            <ul>
+                                <li>Запечённый ЛососьКраб -30% 12.00 - 17.00179 руб.</li>
+                                <li>Запеченный с курицей Акция159 руб.</li>
+                                <li>Ролл Калифорния Акция159 руб.</li>
+                                <li>Чай до 17.00 Акция0 руб.</li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  no-gutters">
+            <div class="col">
                 <p>К оплате 259 руб.
-
             </div>
-        </div>
-
-        <div>
-            <ul class="nav nav-tabs  flex-column">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски Десерт</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="id_1">
-                <ul><li>Запечённый ЛососьКраб -30% 12.00 - 17.00179 руб.</li>
-                    <li>Запеченный с курицей Акция159 руб.</li>
-                    <li>Ролл Калифорния Акция159 руб.</li>
-                    <li>Чай до 17.00 Акция0 руб.</li>
-                </ul>
-            </div>
-
-
         </div>
     </div>
 </div>
