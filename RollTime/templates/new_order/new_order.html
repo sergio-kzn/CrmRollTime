@@ -138,11 +138,11 @@
             <ul class="nav nav-tabs">
                 <!-- Первая вкладка - Заказ (активная) -->
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
+                    <a class="nav-link" data-toggle="tab" href="#order">Заказ</a>
                 </li>
                 <!-- Вторая вкладка - Детали -->
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
+                    <a class="nav-link active" data-toggle="tab" href="#details">Детали</a>
                 </li>
                 <!-- Третья вкладка - Отметки -->
                 <li class="nav-item">
@@ -153,7 +153,7 @@
             <!-- Блоки с контентом -->
             <div class="tab-content">
                 <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                <div class="tab-pane fade show active" id="order">
+                <div class="tab-pane fade" id="order">
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
@@ -185,106 +185,71 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Второй блок - Детали -->
-                <div class="tab-pane fade" id="details">
-                    <table class="table">
-                        <tbody>
-                        <tr height="20">
-                            <td></td>
-                            <td width="90"></td>
-                            <td width="270"></td>
-                            <td width="40"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Филиал / Точка</td>
-                            <td colspan="2"><select id="billPoint" style="max-width:270px;"
-                                                    onchange="frontProductAffiliateSelect();">
-                                <option value=",">Сахарова, 31 - Доставка</option>
-                                <option value=",27">Сахарова, 31 - Зал</option>
-                                <option value=",28">Сахарова, 31 - С собой</option>
-                                <option value=",29">Сахарова, 31 - Сайт</option>
-                            </select></td>
-                        </tr>
-                        <tr height="20">
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Карта</td>
-                            <td colspan="2"><input id="billCard" value="" size="20" maxlength="16"
-                                                   autocomplete="off" class="input"> <span onclick="searchCard();"
-                                                                                           class="btn grey order">Найти</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Телефон</td>
-                            <td><input id="billPhone" value="" style="width:250px;" maxlength="50"
-                                       autocomplete="off" class="input ac_input"
-                                       onfocus="$(this).attr('info',$(this).val())"
-                                       onblur="if($(this).val()!=$(this).attr('info')&amp;&amp;$(this).attr('info')>0){billLoadSale();}"
-                                       info="" phone="off"></td>
-                            <td id="bill_client_buttons" align="left"></td>
-                        </tr>
 
-                        <tr height="20">
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr class="tr_details" id="billNameTr">
-                            <td></td>
-                            <td>Имя</td>
-                            <td colspan="2"><input id="billName" value="" style="width:250px;" maxlength="50"
-                                                   autocomplete="off" class="input"></td>
-                        </tr>
-                        <tr id="billClientDescrTr" style="display:none;">
-                            <td></td>
-                            <td></td>
-                            <td colspan="2">
-                                <div id="billClientDescr" class="input" style="width:250px; overflow:auto;"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Улица</td>
-                            <td colspan="2"><input id="billStreet" value="" style="width:250px; float:left;"
-                                                   maxlength="100" autocomplete="off" class="input ac_input"
-                                                   phone="off">
-                                <div id="dop_address_list"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Дом</td>
-                            <td colspan="2"><input id="billHome" value="" style="width:250px;" maxlength="50"
-                                                   autocomplete="off"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Подъезд</td>
-                            <td colspan="2"><input id="billPod" value="" size="5" maxlength="2" autocomplete="off"
-                            ></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Этаж</td>
-                            <td colspan="2"><input id="billEt" value="" size="5" maxlength="2" autocomplete="off"
-                            ></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Кв. (офис)</td>
-                            <td colspan="2"><input id="billKvart" value="" style="width:250px;" maxlength="50"
-                                                   autocomplete="off"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Примечание</td>
-                            <td colspan="2"><textarea id="billDescr" style="width:250px;" maxlength="250"
-                                                      autocomplete="off"></textarea></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <!-- Второй блок - Детали -->
+                <div class="tab-pane mt-3 fade show active" id="details">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
+                                Точка</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option value="1" selected>Сахарова, 31 - Доставка</option>
+                            <option value="2">Сахарова, 31 - Зал</option>
+                            <option value="3">Сахарова, 31 - С собой</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Телефон</span>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Имя</span>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Улица</span>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Дом</span>
+                        </div>
+                        <input type="text" class="form-control" style="max-width:75px">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Подъезд</span>
+                        </div>
+                        <input type="text" class="form-control" style="max-width:75px">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Этаж</span>
+                        </div>
+                        <input type="text" class="form-control" style="max-width:75px">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Кв. (офис)</span>
+                        </div>
+                        <input type="text" class="form-control" style="max-width:75px">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Примечание</span>
+                        </div>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+
                 </div>
 
                 <!-- Третий блок - Отметки -->
@@ -385,7 +350,7 @@
         </div>
 
         <div class="col-6 coll-md-6">
-            <div class="row no-gutters"">
+            <div class="row no-gutters">
                 <div class="col-3 col-md-3 bg-light overflow-hidden">
                     <ul class="nav nav-tabs  flex-column">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
