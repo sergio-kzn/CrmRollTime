@@ -30,11 +30,9 @@
     <link href='{% static "css/all.min.css" %}' rel="stylesheet">
 
     <!-- DatePicker -->
-    <link rel="stylesheet" href='{% static "css/bootstrap-datepicker3.min.css" %}'>
-    <script src='{% static "/js/bootstrap-datepicker.min.js" %}'></script>
+    <link href='{% static "/css/datepicker.min.css" %}' rel="stylesheet" type="text/css">
+    <script src='{% static "/js/datepicker.min.js" %}'></script>
     <script src='{% static "/js/js.js" %}'></script>
-    <script src='{% static "/locales/bootstrap-datepicker.ru.min.js" %}'></script>
-
 
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
 </head>
@@ -146,9 +144,9 @@
 
 <div class="container-xl">
     <div class="row  no-gutters">
-        <div class="col-6 col-md-6 overflow-auto">
+        <div class="col-5 col-md-5 overflow-auto">
 
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs mt-2">
                 <!-- Первая вкладка - Заказ (активная) -->
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
@@ -163,7 +161,7 @@
                 </li>
             </ul>
 
-            <!-- Блоки с контентом -->
+            <!-- Блок с вкладками слева -->
             <div class="tab-content">
                 <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
                 <div class="tab-pane fade table-responsive show active mt-3 mr-3" id="order">
@@ -266,15 +264,15 @@
 
                 <!-- Третий блок - Отметки -->
                 <div class="tab-pane mt-3 mr-3 fade" id="advanced">
-                    <div class="input-group mb-3 date">
+                    <!-- FIXME: дата не вставляется в поле -->
+                    <div class="input-group mb-3 ">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"
                                   style="width:180px">Предзаказ</span>
                         </div>
                         <div class="custom-file custom-calendar" style="min-width:190px">
-                            <input type="text" class="custom-file-input" id="inputGroupFile02">
-                            <label class="custom-file-label" for="inputGroupFile02"
-                                   aria-describedby="inputGroupFileAddon02">Выберите дату</label>
+                            <input type="text" class="custom-file-input datepicker-here">
+                            <label class="custom-file-label"></label>
                         </div>
                         <div class="input-group-append">
                             <span class="input-group-text"><i
@@ -291,7 +289,7 @@
                         <input type="text" class="form-control" style="min-width:190px" placeholder="Номер сертификата">
 
                         <div class="input-group-append">
-                            <button class="btn  btn-outline-primary" type="button" id="inputGroupFileAddon04">Найти
+                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
                             </button>
                             <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
                                                               data-toggle="tooltip"
@@ -344,111 +342,119 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 coll-md-6">
-            <div class="row no-gutters">
-                <div class="col-3 col-md-3 bg-light overflow-hidden">
-                    <ul class="nav nav-tabs  flex-column">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
-                            Десерт</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
-                    </ul>
-                </div>
-                <div class="col-9 coll-md-9 overflow-auto">
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="id_1">
-                            <ul>
-                                <li>Запечённый ЛососьКраб -30% 12.00 - 17.00179 руб.</li>
-                                <li>Запеченный с курицей Акция159 руб.</li>
-                                <li>Ролл Калифорния Акция159 руб.</li>
-                                <li>Чай до 17.00 Акция0 руб.</li>
-                            </ul>
-                        </div>
 
+        <!-- Блок с категориями по центру -->
+        <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
+            <ul class="nav nav-tabs mt-2 mb-1 flex-column">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
+                    Десерт</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
+            </ul>
+        </div>
 
+        <div class="col-5 coll-md-5 overflow-auto">
+            <div class="tab-content custom-list mt-2">
+                <div class="tab-pane fade show active" id="id_1">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action">
+                            Запечённый Лосось Краб -30% 12.00 - 17.00 <span>179 руб.</span>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action">Запеченный с курицей
+                            Акция <span>159 руб.</span>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action">Ролл Калифорния Акция <span>159
+                            руб.</span>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action">Чай до 17.00
+                            Акция <span>0 руб.</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
     </div>
-</div>
 
 <!-- Нижний блок -->
-<div class="container-xl sticky-bottom">
-    <div class="row  align-items-center pt-3 pb-3">
-        <div class="col mt-1">
-            <div class="input-group" style="width:150px">
-                <select class="custom-select" id="inputGroupSelect05">
-                    <option value="1" selected>Без скидки</option>
-                    <option value="2">-3%</option>
-                    <option value="3">-5%</option>
-                    <option value="4">-7%</option>
-                    <option value="5">-10%</option>
-                    <option value="6">-20%</option>
-                    <option value="7">-30%</option>
-                    <option value="8">-50%</option>
-                    <option value="9">-100%</option>
-                    <option value="10">Суммой</option>
-                </select>
-            </div>
-        </div>
-        <div class="col mt-1">
-            <div class="input-group" style="width:150px">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect06">Приборы</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect06" style="padding-left:.5rem">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                </select>
-            </div>
-        </div>
-        <div class="col mt-1">
-            <div class="input-group">
-                <span class="alert alert-success mb-0">К оплате 259 руб.</span>
-            </div>
-        </div>
-
-        <div class="col mt-1">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                <button class="btn btn-success" type="button"><i class="fas fa-cart-plus"></i> Сохранить
-                </button></div>
-                <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+<footer class="footer">
+    <div class="container-xl sticky-bottom">
+        <div class="row  align-items-center pt-3 pb-3">
+            <div class="col mt-1">
+                <div class="input-group" style="width:150px">
+                    <select class="custom-select" id="inputGroupSelect05">
+                        <option value="1" selected>Без скидки</option>
+                        <option value="2">-3%</option>
+                        <option value="3">-5%</option>
+                        <option value="4">-7%</option>
+                        <option value="5">-10%</option>
+                        <option value="6">-20%</option>
+                        <option value="7">-30%</option>
+                        <option value="8">-50%</option>
+                        <option value="9">-100%</option>
+                        <option value="10">Суммой</option>
+                    </select>
                 </div>
             </div>
-        </div>
+            <div class="col mt-1">
+                <div class="input-group" style="width:150px">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect06">Приборы</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect06" style="padding-left:.5rem">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="col mt-1">
+                <div class="input-group" style="min-width:175px">
+                    <span class="alert alert-success mb-0">К оплате 259 руб.</span>
+                </div>
+            </div>
+
+            <div class="col mt-1">
+                <div class="input-group" style="min-width:170px">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-success" type="button"><i class="fas fa-cart-plus"></i> Сохранить
+                        </button>
+                    </div>
+                    <div class="input-group-append" id="button-addon4">
+                        <button class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-</div>
+</footer>
 </body>
 </html>

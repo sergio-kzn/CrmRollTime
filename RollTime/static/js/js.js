@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-$('.input-group.date').datepicker({
+$('.custom-calendar.date').datepicker({
     weekStart: 1,
     todayBtn: "linked",
     language: "ru",

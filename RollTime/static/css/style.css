@@ -10,12 +10,33 @@ font-family: "Font Awesome 5 Free";
     padding: 0rem .5rem 0rem .5rem;
     }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sticky-bottom {
-    position: -webkit-sticky;
-    position: sticky;
+.footer{
+position: absolute;
     bottom: 0;
+    width: 100%;
     z-index: 1020;
     background-color: #eeeeee;
-  }
+}
+
+.custom-nav .nav-tabs {
+border-bottom: 0;
+}
+
+.custom-nav .nav-link {
+    margin: 0 .5rem .5rem .5rem;
+    background-color: #e9ecef;
+    padding: .5rem .7rem;
+        border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: 0;
+    line-height: 1.4;
+}
+
+.custom-nav .nav-link.active{
+    border-color: #dee2e6 #fff #dee2e6 #dee2e6;
+}
+
+.custom-list .list-group-item span {
+  white-space: nowrap;
+  float: right;
 }
