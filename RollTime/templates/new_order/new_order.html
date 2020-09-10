@@ -10,6 +10,8 @@
 <head>
     <meta charset="utf-8">
 
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -24,6 +26,15 @@
     <script src='{% static "/js/bootstrap.min.js" %}'
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
+
+    <!-- fontawesome-free-5.14.0-web -->
+    <link href='{% static "css/all.min.css" %}' rel="stylesheet">
+
+    <!-- DatePicker -->
+    <link rel="stylesheet" href='{% static "css/bootstrap-datepicker3.min.css" %}'>
+    <script src='{% static "/js/bootstrap-datepicker.min.js" %}'></script>
+    <script src='{% static "/js/js.js" %}'></script>
+    <script src='{% static "/locales/bootstrap-datepicker.ru.min.js" %}'></script>
 </head>
 <body>
 
@@ -138,11 +149,11 @@
             <ul class="nav nav-tabs">
                 <!-- Первая вкладка - Заказ (активная) -->
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#order">Заказ</a>
+                    <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
                 </li>
                 <!-- Вторая вкладка - Детали -->
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#details">Детали</a>
+                    <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
                 </li>
                 <!-- Третья вкладка - Отметки -->
                 <li class="nav-item">
@@ -153,7 +164,7 @@
             <!-- Блоки с контентом -->
             <div class="tab-content">
                 <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                <div class="tab-pane fade" id="order">
+                <div class="tab-pane fade table-responsive show active" id="order">
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
@@ -187,13 +198,13 @@
                 </div>
 
                 <!-- Второй блок - Детали -->
-                <div class="tab-pane mt-3 fade show active" id="details">
+                <div class="tab-pane mt-3 mr-3 fade" id="details">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
                                 Точка</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01">
+                        <select class="custom-select" id="inputGroupSelect01" style="min-width:190px">
                             <option value="1" selected>Сахарова, 31 - Доставка</option>
                             <option value="2">Сахарова, 31 - Зал</option>
                             <option value="3">Сахарова, 31 - С собой</option>
@@ -204,20 +215,20 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width:180px">Телефон</span>
                         </div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" style="min-width:190px">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width:180px">Имя</span>
                         </div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" style="min-width:190px">
                     </div>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width:180px">Улица</span>
                         </div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" style="min-width:190px">
                     </div>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
@@ -253,95 +264,82 @@
                 </div>
 
                 <!-- Третий блок - Отметки -->
-                <div class="tab-pane fade" id="advanced">
+                <div class="tab-pane mt-3 mr-3 fade" id="advanced">
+                    <div class="input-group mb-3 date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01"
+                                  style="width:180px">Предзаказ</span>
+                        </div>
+                        <div class="custom-file custom-calendar" style="min-width:190px">
+                            <input type="text" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label" for="inputGroupFile02"
+                                   aria-describedby="inputGroupFileAddon02">Выберите дату</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i
+                                    class="far fa-question-circle ml-1 mr-1" data-toggle="tooltip" title="Позволяет создавать заказ на определенную дату.
+Предзаказ отображается как обычный заказ на дату предзаказа."></i></span>
+                        </div>
+                    </div>
 
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                        <tbody>
-                        <tr height="20">
-                            <td width="18"></td>
-                            <td width="90"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">Позволяет создавать заказ на определенную
-                                дату. Предзаказ отображается как обычный заказ на дату предзаказа.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Предзаказ</td>
-                            <td align="left"><input id="billDatetime" name="billDatetime" class="input"
-                                                    style="width:140px;"> <span class="icon calendar"
-                                                                                onclick="displayDatePicker('billDatetime', false, 'dmy h:i:s', '.');"></span>
-                            </td>
-                        </tr>
-                        <tr class="tr_details" id="tr_prebill_list" style="display:none;">
-                            <td></td>
-                            <td></td>
-                            <td align="left" id="prebill_list"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">С помощью сертификата можно
-                                добавлять в заказ подарки или товары с заданной ценой.<br>Сертификаты создаются
-                                в соответствующем справочнике.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Сертификат</td>
-                            <td align="left"><input id="billCertificate" autocomplete="off" class="input"
-                                                    style="width:140px;"> <span onclick="searchCertificate();"
-                                                                                class="btn grey order">Найти</span>
-                            </td>
-                        </tr>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:180px">Сертификат</span>
+                        </div>
 
-                        <tr class="tr_details">
-                            <td></td>
-                            <td>Узнали из</td>
-                            <td><select id="billChannel">
-                                <option value="">Не выбрано</option>
-                                <option value="269">foodsoul.pro</option>
-                            </select></td>
-                        </tr>
-                        <tr class="tr_details" align="left">
-                            <td></td>
-                            <td>Оплата</td>
-                            <td><select id="billPay" style="width:70px;">
-                                <option value="0" selected="selected"></option>
-                                <option value="1">Нал.</option>
-                                <option value="2">Б/нал.</option>
-                                <option value="30">Мобильный банк</option>
-                                <option value="123">Картой курьеру</option>
-                            </select></td>
-                        </tr>
-                        <tr class="tr_details" height="20">
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr class="tr_details" valign="top" align="left">
-                            <td></td>
-                            <td>Отметки</td>
-                            <td id="billTag"><span id="tag_217" onclick="btnSelect(this);"
-                                                   class="btn tag"> В зале</span><br><span id="tag_218"
-                                                                                           onclick="btnSelect(this);"
-                                                                                           class="btn tag"> Доставка</span><br><span
-                                    id="tag_216" onclick="btnSelect(this);" class="btn tag"> С собой</span><br><span
-                                    id="tag_3214" onclick="btnSelect(this);"
-                                    class="btn tag">Flamp 50%</span><br><span id="tag_3213"
-                                                                              onclick="btnSelect(this);"
-                                                                              class="btn tag">Gmoji</span><br><span
-                                    id="tag_724" onclick="btnSelect(this);"
-                                    class="btn tag">Домофон не работает</span><br><span id="tag_213"
-                                                                                        onclick="btnSelect(this);"
-                                                                                        class="btn tag">Оплата картой</span><br><span
-                                    id="tag_212" onclick="btnSelect(this);"
-                                    class="btn tag">Оплата наличными</span><br><span id="tag_927"
-                                                                                     onclick="btnSelect(this);"
-                                                                                     class="btn tag">Реклама</span><br>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <input type="text" class="form-control" style="min-width:190px" placeholder="Номер сертификата">
 
+                        <div class="input-group-append">
+                            <button class="btn  btn-outline-primary" type="button" id="inputGroupFileAddon04">Найти
+                            </button>
+                            <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
+                                                              data-toggle="tooltip"
+                                                              title="С помощью сертификата можно
+                        добавлять в заказ подарки или товары с заданной ценой. Сертификаты создаются
+                        в соответствующем справочнике."></i></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect02" style="width:180px">Узнали
+                                из</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect02" style="min-width:190px">
+                            <option selected>Не выбрано</option>
+                            <option value="1">rolltime16.ru</option>
+                            <option value="2">Агрегатор</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect03"
+                                   style="width:180px">Оплата</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect03" style="min-width:190px">
+                            <option selected></option>
+                            <option value="1">Нал.</option>
+                            <option value="2">Б/нал.</option>
+                            <option value="3">Мобильный банк</option>
+                            <option value="1">Агрегатор</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                        <label class="btn btn-outline-primary">
+                            <input type="radio" name="options" id="option1"> Доставка
+                        </label>
+                        <label class="btn btn-outline-primary">
+                            <input type="radio" name="options" id="option2"> С собой
+                        </label>
+                        <label class="btn btn-outline-primary">
+                            <input type="radio" name="options" id="option3"> В зале
+                        </label>
+                        <label class="btn btn-outline-secondary col-1 active">
+                            <input type="radio" name="options" id="option4" checked> х
+                        </label>
+                    </div>
                 </div>
 
             </div>

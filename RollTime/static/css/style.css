@@ -1,0 +1,6 @@
+.custom-calendar .custom-file-label::after {
+font-family: "Font Awesome 5 Free";
+    content: "\f073" !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    }
