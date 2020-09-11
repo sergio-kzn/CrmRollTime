@@ -142,255 +142,259 @@
     </div>
 </nav>
 
-<div class="container-xl">
-    <div class="row  no-gutters">
-        <div class="col-5 col-md-5 overflow-auto">
-
-            <ul class="nav nav-tabs mt-2">
-                <!-- Первая вкладка - Заказ (активная) -->
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
-                </li>
-                <!-- Вторая вкладка - Детали -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
-                </li>
-                <!-- Третья вкладка - Отметки -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
-                </li>
-            </ul>
+<form action="{% url 'new_order:add_order_in_db' %}" method="post">
+    {% csrf_token %}
+    <div class="container-xl">
+        <div class="row  no-gutters">
 
             <!-- Блок с вкладками слева -->
-            <div class="tab-content">
-                <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                <div class="tab-pane fade table-responsive show active mt-3 mr-3" id="order">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Наим-е</th>
-                            <th scope="col">Кол-во</th>
-                            <th scope="col">Цена</th>
-                            <th scope="col">Сумма</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">Набор Горяченькое-мини</th>
-                            <td>
-                                <div class="input-group">
-                                    <select class="custom-select custom-quantity" id="inputGroupSelect04">
-                                        <option value="99">Удалить</option>
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>764</td>
-                            <td>1528</td>
-                        </tr>
+            <div class="col-5 col-md-5 overflow-auto">
+                <!-- Вкладки -->
+                <ul class="nav nav-tabs mt-2">
+                    <!-- Первая вкладка - Заказ (активная) -->
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
+                    </li>
+                    <!-- Вторая вкладка - Детали -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
+                    </li>
+                    <!-- Третья вкладка - Отметки -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
+                    </li>
+                </ul>
+                <!-- Содержимое вкладок -->
+                <div class="tab-content">
+                    <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
+                    <div class="tab-pane fade table-responsive show active mt-3 mr-3" id="order">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Наим-е</th>
+                                <th scope="col">Кол-во</th>
+                                <th scope="col">Цена</th>
+                                <th scope="col">Сумма</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Набор Горяченькое-мини</th>
+                                <td>
+                                    <div class="input-group">
+                                        <select class="custom-select custom-quantity" id="inputGroupSelect04">
+                                            <option value="99">Удалить</option>
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>764</td>
+                                <td>1528</td>
+                            </tr>
 
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Второй блок - Детали -->
-                <div class="tab-pane mt-3 mr-3 fade" id="details">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
-                                Точка</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01" style="min-width:190px">
-                            <option value="1" selected>Сахарова, 31 - Доставка</option>
-                            <option value="2">Сахарова, 31 - Зал</option>
-                            <option value="3">Сахарова, 31 - С собой</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Телефон</span>
-                        </div>
-                        <input type="text" class="form-control" style="min-width:190px">
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Имя</span>
+                    <!-- Второй блок - Детали -->
+                    <div class="tab-pane mt-3 mr-3 fade" id="details">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
+                                    Точка</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01" style="min-width:190px">
+                                <option value="1" selected>Сахарова, 31 - Доставка</option>
+                                <option value="2">Сахарова, 31 - Зал</option>
+                                <option value="3">Сахарова, 31 - С собой</option>
+                            </select>
                         </div>
-                        <input type="text" class="form-control" style="min-width:190px">
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Улица</span>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Телефон</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width:190px">
                         </div>
-                        <input type="text" class="form-control" style="min-width:190px">
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Дом</span>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Имя</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width:190px">
                         </div>
-                        <input type="text" class="form-control" style="max-width:75px">
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Подъезд</span>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Улица</span>
+                            </div>
+                            <input type="text" class="form-control" style="min-width:190px">
                         </div>
-                        <input type="text" class="form-control" style="max-width:75px">
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Этаж</span>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Дом</span>
+                            </div>
+                            <input type="text" class="form-control" style="max-width:75px">
                         </div>
-                        <input type="text" class="form-control" style="max-width:75px">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Кв. (офис)</span>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Подъезд</span>
+                            </div>
+                            <input type="text" class="form-control" style="max-width:75px">
                         </div>
-                        <input type="text" class="form-control" style="max-width:75px">
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Примечание</span>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Этаж</span>
+                            </div>
+                            <input type="text" class="form-control" style="max-width:75px">
                         </div>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Кв. (офис)</span>
+                            </div>
+                            <input type="text" class="form-control" style="max-width:75px">
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Примечание</span>
+                            </div>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <!-- Третий блок - Отметки -->
-                <div class="tab-pane mt-3 mr-3 fade" id="advanced">
-                    <!-- FIXME: дата не вставляется в поле -->
-                    <div class="input-group mb-3 ">
-                        <div class="input-group-prepend">
+                    <!-- Третий блок - Отметки -->
+                    <div class="tab-pane mt-3 mr-3 fade" id="advanced">
+                        <!-- FIXME: дата не вставляется в поле -->
+                        <div class="input-group mb-3 ">
+                            <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"
                                   style="width:180px">Предзаказ</span>
-                        </div>
-                        <div class="custom-file custom-calendar" style="min-width:190px">
-                            <input type="text" class="custom-file-input datepicker-here">
-                            <label class="custom-file-label"></label>
-                        </div>
-                        <div class="input-group-append">
+                            </div>
+                            <div class="custom-file custom-calendar" style="min-width:190px">
+                                <input type="text" class="custom-file-input datepicker-here">
+                                <label class="custom-file-label"></label>
+                            </div>
+                            <div class="input-group-append">
                             <span class="input-group-text"><i
                                     class="far fa-question-circle ml-1 mr-1" data-toggle="tooltip" title="Позволяет создавать заказ на определенную дату.
 Предзаказ отображается как обычный заказ на дату предзаказа."></i></span>
-                        </div>
-                    </div>
-
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:180px">Сертификат</span>
+                            </div>
                         </div>
 
-                        <input type="text" class="form-control" style="min-width:190px" placeholder="Номер сертификата">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:180px">Сертификат</span>
+                            </div>
 
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
-                            </button>
-                            <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
-                                                              data-toggle="tooltip"
-                                                              title="С помощью сертификата можно
+                            <input type="text" class="form-control" style="min-width:190px" placeholder="Номер сертификата">
+
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
+                                </button>
+                                <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
+                                                                  data-toggle="tooltip"
+                                                                  title="С помощью сертификата можно
                         добавлять в заказ подарки или товары с заданной ценой. Сертификаты создаются
                         в соответствующем справочнике."></i></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect02" style="width:180px">Узнали
-                                из</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect02" style="width:180px">Узнали
+                                    из</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect02" style="min-width:190px">
+                                <option selected>Не выбрано</option>
+                                <option value="1">rolltime16.ru</option>
+                                <option value="2">Агрегатор</option>
+                            </select>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect02" style="min-width:190px">
-                            <option selected>Не выбрано</option>
-                            <option value="1">rolltime16.ru</option>
-                            <option value="2">Агрегатор</option>
-                        </select>
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect03"
-                                   style="width:180px">Оплата</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect03"
+                                       style="width:180px">Оплата</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect03" style="min-width:190px">
+                                <option selected></option>
+                                <option value="1">Нал.</option>
+                                <option value="2">Б/нал.</option>
+                                <option value="3">Мобильный банк</option>
+                                <option value="1">Агрегатор</option>
+                            </select>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect03" style="min-width:190px">
-                            <option selected></option>
-                            <option value="1">Нал.</option>
-                            <option value="2">Б/нал.</option>
-                            <option value="3">Мобильный банк</option>
-                            <option value="1">Агрегатор</option>
-                        </select>
-                    </div>
 
-                    <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                        <label class="btn btn-outline-primary">
-                            <input type="radio" name="options" id="option1"> Доставка
-                        </label>
-                        <label class="btn btn-outline-primary">
-                            <input type="radio" name="options" id="option2"> С собой
-                        </label>
-                        <label class="btn btn-outline-primary">
-                            <input type="radio" name="options" id="option3"> В зале
-                        </label>
-                        <label class="btn btn-outline-secondary col-1 active">
-                            <input type="radio" name="options" id="option4" checked> х
-                        </label>
+                        <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                            <label class="btn btn-outline-primary">
+                                <input type="radio" name="options" id="option1"> Доставка
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="radio" name="options" id="option2"> С собой
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="radio" name="options" id="option3"> В зале
+                            </label>
+                            <label class="btn btn-outline-secondary col-1 active">
+                                <input type="radio" name="options" id="option4" checked> х
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Блок с категориями по центру -->
-        <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
-            <ul class="nav nav-tabs mt-2 mb-1 flex-column">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
-                    Десерт</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
-            </ul>
-        </div>
+            <!-- Блок с категориями по центру -->
+            <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
+                <ul class="nav nav-tabs mt-2 mb-1 flex-column">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
+                        Десерт</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
+                </ul>
+            </div>
 
-        <div class="col-5 coll-md-5 overflow-auto">
-            <div class="tab-content custom-list mt-2">
-                <div class="tab-pane fade show active" id="id_1">
-                    <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action">
-                            Запечённый Лосось Краб -30% 12.00 - 17.00 <span>179 руб.</span>
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action">Запеченный с курицей
-                            Акция <span>159 руб.</span>
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action">Ролл Калифорния Акция <span>159
+            <!-- Блок с товарам справа -->
+            <div class="col-5 coll-md-5 overflow-auto">
+                <div class="tab-content custom-list mt-2">
+                    <div class="tab-pane fade show active" id="id_1">
+                        <div class="list-group">
+                            <button type="button" class="list-group-item list-group-item-action">
+                                Запечённый Лосось Краб -30% 12.00 - 17.00 <span>179 руб.</span>
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action">Запеченный с курицей
+                                Акция <span>159 руб.</span>
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action">Ролл Калифорния Акция <span>159
                             руб.</span>
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action">Чай до 17.00
-                            Акция <span>0 руб.</span>
-                        </button>
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action">Чай до 17.00
+                                Акция <span>0 руб.</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     </div>
 
-<!-- Нижний блок -->
+    <!-- Нижний блок -->
 <footer class="footer">
     <div class="container-xl sticky-bottom">
         <div class="row  align-items-center pt-3 pb-3">
@@ -443,8 +447,9 @@
 
             <div class="col mt-1">
                 <div class="input-group" style="min-width:170px">
+
                     <div class="input-group-prepend">
-                        <button class="btn btn-success" type="button"><i class="fas fa-cart-plus"></i> Сохранить
+                        <button class="btn btn-success" type="submit"><i class="fas fa-cart-plus"></i> Сохранить
                         </button>
                     </div>
                     <div class="input-group-append" id="button-addon4">
@@ -452,9 +457,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </footer>
+</form>
 </body>
 </html>
