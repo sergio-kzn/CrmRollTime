@@ -67,21 +67,20 @@
                        aria-haspopup="true" aria-expanded="false">Справочники</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="#">Товары</a>
-                        <a class="dropdown-item" href="#">Компоненты (сырье)</a>
-                        <a class="dropdown-item" href="#">Клиенты</a>
-                        <a class="dropdown-item" href="#">Сотрудники</a>
-                        <a class="dropdown-item" href="#">Расписание курьеров</a>
-                        <a class="dropdown-item" href="#">Сертификаты</a>
-                        <a class="dropdown-item" href="#">Скидки</a>
-                        <a class="dropdown-item" href="#">Наценки</a>
-                        <a class="dropdown-item" href="#">Статусы</a>
-                        <a class="dropdown-item" href="#">Отметки заказов</a>
-                        <a class="dropdown-item" href="#">Варианты оплаты</a>
-                        <a class="dropdown-item" href="#">Поставщики</a>
-                        <a class="dropdown-item" href="#">Причины списания</a>
-                        <a class="dropdown-item" href="#">Единицы измерения</a>
-                        <a class="dropdown-item" href="#">Улицы</a>
-                        <a class="dropdown-item" href="#">Должности</a>
+                        <a class="dropdown-item" href="http://localhost:8000/admin/new_order/category/" target="_blank">Категории</a>
+                        <a class="dropdown-item disabled" href="#">Клиенты</a>
+                        <a class="dropdown-item disabled" href="#">Сотрудники</a>
+                        <a class="dropdown-item disabled" href="#">Расписание курьеров</a>
+                        <a class="dropdown-item disabled" href="#">Сертификаты</a>
+                        <a class="dropdown-item disabled" href="#">Скидки</a>
+                        <a class="dropdown-item disabled" href="#">Наценки</a>
+                        <a class="dropdown-item disabled" href="#">Статусы</a>
+                        <a class="dropdown-item disabled" href="#">Отметки заказов</a>
+                        <a class="dropdown-item disabled" href="#">Варианты оплаты</a>
+                        <a class="dropdown-item disabled" href="#">Поставщики</a>
+                        <a class="dropdown-item disabled" href="#">Причины списания</a>
+                        <a class="dropdown-item disabled" href="#">Улицы</a>
+                        <a class="dropdown-item disabled" href="#">Должности</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -349,22 +348,13 @@
             <!-- Блок с категориями по центру -->
             <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
                 <ul class="nav nav-tabs mt-2 mb-1 flex-column">
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#id_1">АКЦИИ</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_2">Фирменные роллы</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_3">Классические роллы</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_4">Горячие роллы</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_5">Сливочные роллы</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_6">Наборы&Сеты</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_7">Суши</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_8">Пицца</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_9">Бургеры</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_10">Супы Салат Закуски
-                        Десерт</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_11">ВОК</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_12">Напитки</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_13">Доп.</a></li>
+                    <!-- TODO: добавить класс active к первому li -->
+                    {% for category in category_list %}
+                    {% if category.category_show %}
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_{{ category.category_id}}">
+                        {{ category.category_name }}</a></li>
+                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
 
