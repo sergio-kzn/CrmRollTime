@@ -1,6 +1,36 @@
 from django.db import models
 
 
+class Category(models.Model):
+    def __str__(self):
+        return self.category_name
+
+    category_id = models.AutoField(verbose_name='Номер категории', primary_key=True)
+    category_name = models.CharField(verbose_name='Категория', max_length=100)
+    category_show = models.BooleanField('Видимость', default=True)
+
+
+class Color(models.Model):
+    def __str__(self):
+        return self.color
+
+    color = models.CharField(verbose_name='Цвет', max_length=50)
+
+
+class Item(models.Model):
+    def __str__(self):
+        return self.item_name
+
+    item_id = models.AutoField(verbose_name='Номер товара', primary_key=True)
+    item_index = models.IntegerField(verbose_name='Артикул', blank=True, null=True)
+    item_category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=False)
+    item_name = models.CharField(verbose_name='Наименование', max_length=100, default='')
+    item_price = models.IntegerField(verbose_name='Цена')
+    item_color = models.ForeignKey(Color, on_delete=models.SET_NULL, blank=True, null=True)
+    item_description = models.TextField(verbose_name='Описание', blank=True)
+    item_show = models.BooleanField('Видимость', default=True)
+
+
 class Order(models.Model):
     def __str__(self):
         return f'{self.order_id} {self.order_date_time}'
@@ -18,24 +48,3 @@ class Order(models.Model):
     order_price = models.IntegerField(verbose_name='Сумма')
     order_sale = models.JSONField(verbose_name='Скидка')
     order_marks = models.JSONField(verbose_name='Отметки')
-
-
-class Category(models.Model):
-    def __str__(self):
-        return self.category_name
-
-    category_id = models.AutoField(verbose_name='Номер категории', primary_key=True)
-    category_name = models.CharField(verbose_name='Категория', max_length=100)
-    category_show = models.BooleanField('Видимость', default=True)
-
-
-class Item(models.Model):
-    def __str__(self):
-        return self.item_name
-    item_id = models.IntegerField(verbose_name='Номер товара', primary_key=True)
-    item_index = models.IntegerField(verbose_name='Артикул', unique=True)
-    item_name = models.CharField(verbose_name='Наименование', max_length=100, default='')
-    item_price = models.IntegerField(verbose_name='Цена')
-    item_color = models.CharField(verbose_name='Цвет', max_length=100)
-    item_description = models.TextField(verbose_name='Описание')
-    item_category = models.ForeignKey(Category, on_delete=models.CASCADE)

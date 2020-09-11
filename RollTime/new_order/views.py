@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from .models import Category
+from .models import *
 
 
 def new_order(request):
     category_list = Category.objects.all()
-    context = {'category_list': category_list}
+    item_list = Item.objects.all()
+    context = {'category_list': category_list,
+               'item_list': item_list}
     print(context)
     return render(request, 'new_order/new_order.html', context)
 
