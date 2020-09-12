@@ -8,11 +8,12 @@ def new_order(request):
     context = {'category_list': category_list,
                'item_list': item_list}
     print(context)
+
+    if request.method == 'POST':
+        print("!!!!!!!!!!!!!!!!!")
+
     return render(request, 'new_order/new_order.html', context)
 
 
 def add_order_in_db(request):
-    if request.method == 'POST':
-        print("!!!!!!!!!!!!!!!!!")
-
     return render(request, 'new_order/new_order.html')

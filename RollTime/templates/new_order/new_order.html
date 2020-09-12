@@ -35,6 +35,8 @@
     <script src='{% static "/js/js.js" %}'></script>
 
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <script src='{% static "js/new_order.js" %}'></script>
 </head>
 <body>
 
@@ -83,7 +85,7 @@
                         <a class="dropdown-item disabled" href="#">Должности</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown d-none">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Склад</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown05">
@@ -163,7 +165,8 @@
                         <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
                     </li>
                 </ul>
-                <!-- Содержимое вкладок -->
+
+                <!-- Содержимое вкладок (левая колонка) -->
                 <div class="tab-content">
                     <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
                     <div class="tab-pane fade table-responsive show active mt-3 mr-3" id="order">
@@ -212,7 +215,7 @@
                             </select>
                         </div>
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Телефон</span>
                             </div>
@@ -288,7 +291,7 @@
                                 <span class="input-group-text" style="width:180px">Сертификат</span>
                             </div>
 
-                            <input type="text" class="form-control" style="min-width:190px" placeholder="Номер сертификата">
+                            <input type="text" class="form-control">
 
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
@@ -369,9 +372,9 @@
                             {% for item in item_list %}
                             {% if item.item_category_id == category.category_id %}
                             {% if item.item_show %}
-                            <button type="button" class="list-group-item list-group-item-action">
+                            <a href="javascript://" onclick="addRow('{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
                                 {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
-                            </button>
+                            </a>
                             {% endif %}
                             {% endif %}
                             {% endfor %}
@@ -391,23 +394,7 @@
     <div class="container-xl sticky-bottom">
         <div class="row  align-items-center pt-3 pb-3">
             <div class="col mt-1">
-                <div class="input-group" style="width:150px">
-                    <select class="custom-select" id="inputGroupSelect05">
-                        <option value="1" selected>Без скидки</option>
-                        <option value="2">-3%</option>
-                        <option value="3">-5%</option>
-                        <option value="4">-7%</option>
-                        <option value="5">-10%</option>
-                        <option value="6">-20%</option>
-                        <option value="7">-30%</option>
-                        <option value="8">-50%</option>
-                        <option value="9">-100%</option>
-                        <option value="10">Суммой</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col mt-1">
-                <div class="input-group" style="width:150px">
+                 <div class="input-group" style="width:150px">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect06">Приборы</label>
                     </div>
@@ -427,6 +414,22 @@
                         <option value="13">13</option>
                         <option value="14">14</option>
                         <option value="15">15</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col mt-1">
+               <div class="input-group" style="width:150px">
+                    <select class="custom-select" id="inputGroupSelect05">
+                        <option value="1" selected>Без скидки</option>
+                        <option value="2">-3%</option>
+                        <option value="3">-5%</option>
+                        <option value="4">-7%</option>
+                        <option value="5">-10%</option>
+                        <option value="6">-20%</option>
+                        <option value="7">-30%</option>
+                        <option value="8">-50%</option>
+                        <option value="9">-100%</option>
+                        <option value="10">Суммой</option>
                     </select>
                 </div>
             </div>
@@ -453,5 +456,6 @@
     </div>
 </footer>
 </form>
+
 </body>
 </html>
