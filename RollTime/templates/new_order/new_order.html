@@ -1,166 +1,21 @@
-<!DOCTYPE html>
-{% load static %}
-<!--<img src="{% static "images/kamni.jpg" %}" alt="Stones along the river" >-->
+{% extends "new_order/base.html" %}
 
-<html lang="ru">
-<title>Ролл Тайм</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<head>
-    <meta charset="utf-8">
-
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src='{% static "/js/bootstrap.min.js" %}'
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
-
-    <!-- fontawesome-free-5.14.0-web -->
-    <link href='{% static "css/fontawesome.min.css" %}' rel="stylesheet">
-
-    <!-- DatePicker -->
-    <link href='{% static "/css/datepicker.min.css" %}' rel="stylesheet" type="text/css">
-    <script src='{% static "/js/datepicker.min.js" %}'></script>
-    <script src='{% static "/js/js.js" %}'></script>
-
-    <link rel="stylesheet" href='{% static "css/style.css" %}'>
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-    <script src='{% static "js/new_order.js" %}'></script>
-</head>
-<body>
-
-
-<!-- Bootstrap Меню -->
-<nav class="navbar sticky-top navbar-expand-xl navbar-dark bg-dark">
-    <div class="container-xl">
-        <a class="navbar-brand pb-sm-0" href="/new_order/">
-            <img src='{% static "images/logo.png" %}' height="50" alt="Логотип РоллТайм" loading="lazy">
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
-                aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExample04">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/new_order/">Новый заказ<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Заказы</a>
-                </li>
-                <!--      <li class="nav-item">-->
-                <!--        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                <!--      </li>-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Справочники</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="/admin/new_order/item/" target="_blank">Товары</a>
-                        <a class="dropdown-item" href="/admin/new_order/category/" target="_blank">Категории</a>
-                        <a class="dropdown-item disabled" href="#">Клиенты</a>
-                        <a class="dropdown-item disabled" href="#">Сотрудники</a>
-                        <a class="dropdown-item disabled" href="#">Расписание курьеров</a>
-                        <a class="dropdown-item disabled" href="#">Сертификаты</a>
-                        <a class="dropdown-item disabled" href="#">Скидки</a>
-                        <a class="dropdown-item disabled" href="#">Наценки</a>
-                        <a class="dropdown-item disabled" href="#">Статусы</a>
-                        <a class="dropdown-item disabled" href="#">Отметки заказов</a>
-                        <a class="dropdown-item disabled" href="#">Варианты оплаты</a>
-                        <a class="dropdown-item disabled" href="#">Поставщики</a>
-                        <a class="dropdown-item disabled" href="#">Причины списания</a>
-                        <a class="dropdown-item disabled" href="#">Улицы</a>
-                        <a class="dropdown-item disabled" href="#">Должности</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown d-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Склад</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown05">
-                        <a class="dropdown-item" href="#">Накладные</a>
-                        <a class="dropdown-item" href="#">Списания</a>
-                        <a class="dropdown-item" href="#">Выпуск</a>
-                        <a class="dropdown-item" href="#">Перемещение</a>
-                        <a class="dropdown-item" href="#">Остатки</a>
-                        <a class="dropdown-item" href="#">Инвентаризации</a>
-                        <a class="dropdown-item" href="#">Автосписание</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Деньги</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown06">
-                        <a class="dropdown-item" href="#">Касса</a>
-                        <a class="dropdown-item" href="#">Прочие расходы</a>
-                        <a class="dropdown-item" href="#">Зар. плата</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Статистика</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown07">
-                        <a class="dropdown-item" href="#">Сводка</a>
-                        <a class="dropdown-item" href="#">Отчеты</a>
-                        <a class="dropdown-item" href="#">Табель</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Настройки</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown08">
-                        <a class="dropdown-item" href="#">Лицевой счет и тариф</a>
-                        <a class="dropdown-item" href="#">Пользователи</a>
-                        <a class="dropdown-item" href="#">Доступ курьеров</a>
-                        <a class="dropdown-item" href="#">Общие</a>
-                        <a class="dropdown-item" href="#">Печать чека</a>
-                        <a class="dropdown-item" href="#">Каналы продаж</a>
-                        <a class="dropdown-item" href="#">Карта и зоны доставки</a>
-                        <a class="dropdown-item" href="#">Филиалы</a>
-                        <a class="dropdown-item" href="#">Точки продаж</a>
-                        <a class="dropdown-item" href="#">Типы цехов</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control" type="text" placeholder="Search">
-            </form>
-            <form class="form-inline ml-sm-2">
-                <button class="btn btn-sm btn-outline-secondary" type="button">Выйти</button>
-            </form>
-        </div>
-    </div>
-</nav>
-
+{% block container %}
 <form method="post">
     {% csrf_token %}
     <div class="container-xl">
         <div class="row  no-gutters">
 
-            <!-- Блок с вкладками слева -->
+            <!-- Блок Новый заказ - слева -->
             <div class="col-5 col-md-5">
                 <!-- Вкладки -->
                 <ul class="nav nav-tabs mt-2" id="new-order-tabs">
-                    <!-- Первая вкладка - Заказ (активная) -->
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
                     </li>
-                    <!-- Вторая вкладка - Детали -->
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
                     </li>
-                    <!-- Третья вкладка - Отметки -->
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
                     </li>
@@ -189,13 +44,15 @@
                     <div class="tab-pane mr-3 fade" id="details">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
+                                <label class="input-group-text" for="order_branch" style="width:180px">Филиал /
                                     Точка</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect01" style="min-width:190px">
-                                <option value="1" selected>Сахарова, 31 - Доставка</option>
-                                <option value="2">Сахарова, 31 - Зал</option>
-                                <option value="3">Сахарова, 31 - С собой</option>
+                            <select class="custom-select" name="order_branch" id="order_branch" style="min-width:190px">
+                                {% for branch in branch_list %}
+                                <option value="{{ branch.id }}" {% if branch.branch_default %} selected {% endif %}>
+                                    {{ branch }}
+                                </option>
+                                {% endfor %}
                             </select>
                         </div>
 
@@ -252,20 +109,21 @@
 
                     <!-- Третий блок - Отметки -->
                     <div class="tab-pane mr-3 fade active show" id="advanced">
+                        <!-- {{ form.errors }}-->
                         <div class="input-group mb-3 ">
                             <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupFileAddon01"
-                                  style="width:180px">Предзаказ</span>
+                                <span class="input-group-text" style="width:180px">Предзаказ</span>
                             </div>
                             <div class="custom-file custom-calendar" style="min-width:190px">
-                                <input type="text" class="form-control datepicker-here" data-timepicker="true"
-                                       data-min-hours="10" data-clear-button="true" data-auto-close="true"
-                                       data-minutes-step="5" data-toggle-selected="false" id="data-timepicker">
+                                {{ form.order_date_time }}
+                                <!--suppress XmlInvalidId -->
                                 <label class="input-group-text" for="data-timepicker"></label>
                             </div>
                             <div class="input-group-append">
-                            <span class="input-group-text"><i
-                                    class="far fa-question-circle ml-1 mr-1" data-toggle="tooltip" title="Позволяет создавать заказ на определенную дату.
+                            <span class="input-group-text">
+                                <i class="far fa-question-circle ml-1 mr-1"
+                                   data-toggle="tooltip"
+                                   title="Позволяет создавать заказ на определенную дату.
 Предзаказ отображается как обычный заказ на дату предзаказа."></i></span>
                             </div>
                         </div>
@@ -274,8 +132,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Сертификат</span>
                             </div>
-
-                            <input type="text" class="form-control">
+                            {{ form.order_certificate }}
 
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
@@ -288,16 +145,13 @@
                             </div>
                         </div>
 
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect02" style="width:180px">Узнали
                                     из</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect02" style="min-width:190px">
-                                <option selected>Не выбрано</option>
-                                <option value="1">rolltime16.ru</option>
-                                <option value="2">Агрегатор</option>
-                            </select>
+                            {{ form.order_learning_from }}
                         </div>
 
                         <div class="input-group mb-3">
@@ -332,10 +186,9 @@
                 </div>
             </div>
 
-            <!-- Блок с категориями по центру -->
+            <!-- Блок с категориями - по центру -->
             <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
                 <ul class="nav nav-tabs mt-2 mb-1 flex-column">
-                    <!-- FIXME: добавить класс active к первому li -->
                     {% for category in category_list %}
                     {% if category.category_show %}
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_{{ category.category_id}}">
@@ -345,7 +198,7 @@
                 </ul>
             </div>
 
-            <!-- Блок с товарам справа -->
+            <!-- Блок с товарам - справа -->
             <div class="col-5 coll-md-5 overflow-auto">
                 <div class="tab-content custom-list mt-2">
                     <!-- FIXME: добавить класс active и show к первому div id -->
@@ -440,7 +293,9 @@
     </div>
 </footer>
 </form>
+{% endblock %}
 
+{% block scripts %}
 <script>
 function setHeiHeight() {
 var footerHeight = document.querySelector('footer').offsetHeight;
@@ -457,6 +312,9 @@ $(window).resize( setHeiHeight ); // обновляем при изменени�
 
 
 
+
+
+
+
 </script>
-</body>
-</html>
+{% endblock %}

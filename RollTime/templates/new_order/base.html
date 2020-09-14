@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% load static %}
+<!--<img src="{% static "images/kamni.jpg" %}" alt="Stones along the river" >-->
+
+<html lang="ru">
+<title>Ролл Тайм</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+    <meta charset="utf-8">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src='{% static "/js/bootstrap.min.js" %}'
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    <!-- fontawesome-free-5.14.0-web -->
+    <link href='{% static "css/fontawesome.min.css" %}' rel="stylesheet">
+
+    <!-- DatePicker -->
+    <link href='{% static "/css/datepicker.min.css" %}' rel="stylesheet" type="text/css">
+    <script src='{% static "/js/datepicker.min.js" %}'></script>
+    <script src='{% static "/js/js.js" %}'></script>
+
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <script src='{% static "js/new_order.js" %}'></script>
+</head>
+<body>
+
+<!-- Bootstrap Меню -->
+<nav class="navbar sticky-top navbar-expand-xl navbar-dark bg-dark">
+    <div class="container-xl">
+        <a class="navbar-brand pb-sm-0" href="/new_order/">
+            <img src='{% static "images/logo.png" %}' height="50" alt="Логотип РоллТайм" loading="lazy">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+                aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/new_order/">Новый заказ<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Заказы</a>
+                </li>
+                <!--      <li class="nav-item">-->
+                <!--        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                <!--      </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Справочники</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="/admin/new_order/item/" target="_blank">Товары</a>
+                        <a class="dropdown-item" href="/admin/new_order/category/" target="_blank">Категории</a>
+                        <a class="dropdown-item disabled" href="#">Клиенты</a>
+                        <a class="dropdown-item disabled" href="#">Сотрудники</a>
+                        <a class="dropdown-item disabled" href="#">Расписание курьеров</a>
+                        <a class="dropdown-item disabled" href="#">Сертификаты</a>
+                        <a class="dropdown-item disabled" href="#">Скидки</a>
+                        <a class="dropdown-item disabled" href="#">Наценки</a>
+                        <a class="dropdown-item disabled" href="#">Статусы</a>
+                        <a class="dropdown-item disabled" href="#">Отметки заказов</a>
+                        <a class="dropdown-item disabled" href="#">Варианты оплаты</a>
+                        <a class="dropdown-item disabled" href="#">Поставщики</a>
+                        <a class="dropdown-item disabled" href="#">Причины списания</a>
+                        <a class="dropdown-item disabled" href="#">Улицы</a>
+                        <a class="dropdown-item disabled" href="#">Должности</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Склад</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown05">
+                        <a class="dropdown-item" href="#">Накладные</a>
+                        <a class="dropdown-item" href="#">Списания</a>
+                        <a class="dropdown-item" href="#">Выпуск</a>
+                        <a class="dropdown-item" href="#">Перемещение</a>
+                        <a class="dropdown-item" href="#">Остатки</a>
+                        <a class="dropdown-item" href="#">Инвентаризации</a>
+                        <a class="dropdown-item" href="#">Автосписание</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Деньги</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown06">
+                        <a class="dropdown-item" href="#">Касса</a>
+                        <a class="dropdown-item" href="#">Прочие расходы</a>
+                        <a class="dropdown-item" href="#">Зар. плата</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Статистика</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown07">
+                        <a class="dropdown-item" href="#">Сводка</a>
+                        <a class="dropdown-item" href="#">Отчеты</a>
+                        <a class="dropdown-item" href="#">Табель</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Настройки</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown08">
+                        <a class="dropdown-item" href="#">Лицевой счет и тариф</a>
+                        <a class="dropdown-item" href="#">Пользователи</a>
+                        <a class="dropdown-item" href="#">Доступ курьеров</a>
+                        <a class="dropdown-item" href="#">Общие</a>
+                        <a class="dropdown-item" href="#">Печать чека</a>
+                        <a class="dropdown-item" href="#">Каналы продаж</a>
+                        <a class="dropdown-item" href="#">Карта и зоны доставки</a>
+                        <a class="dropdown-item" href="#">Филиалы</a>
+                        <a class="dropdown-item" href="#">Точки продаж</a>
+                        <a class="dropdown-item" href="#">Типы цехов</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control" type="text" placeholder="Search">
+            </form>
+            <form class="form-inline ml-sm-2">
+                <button class="btn btn-sm btn-outline-secondary" type="button">Выйти</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+{% block container %}{% endblock %}
+
+{% block scripts %}{% endblock %}
+</body>
+</html>
