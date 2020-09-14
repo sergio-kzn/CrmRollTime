@@ -1,3 +1,12 @@
 /.idea/
 Будет удалено RollTime/RollTime/__pycache__/
 Будет удалено RollTime/new_order/__pycache__/
+!/RollTime/static/css/fontawesome.css
+!/RollTime/static/css/datepicker.css
+!/RollTime/static/css/bootstrap.css
+!/RollTime/static/js/datepicker.js
+!/RollTime/static/js/bootstrap.js
+!/RollTime/static/js/bootstrap.js.map
+!/RollTime/static/js/bootstrap.bundle.js
+!/RollTime/static/js/bootstrap.bundle.js.map
+!/RollTime/static/js/i18n/
