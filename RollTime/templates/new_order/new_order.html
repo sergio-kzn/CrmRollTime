@@ -143,15 +143,15 @@
     </div>
 </nav>
 
-<form action="{% url 'new_order:add_order_in_db' %}" method="post">
+<form method="post">
     {% csrf_token %}
     <div class="container-xl">
         <div class="row  no-gutters">
 
             <!-- Блок с вкладками слева -->
-            <div class="col-5 col-md-5 overflow-auto">
+            <div class="col-5 col-md-5">
                 <!-- Вкладки -->
-                <ul class="nav nav-tabs mt-2">
+                <ul class="nav nav-tabs mt-2" id="new-order-tabs">
                     <!-- Первая вкладка - Заказ (активная) -->
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
@@ -167,9 +167,9 @@
                 </ul>
 
                 <!-- Содержимое вкладок (левая колонка) -->
-                <div class="tab-content">
+                <div class="tab-content mt-3">
                     <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                    <div class="tab-pane fade table-responsive show active mt-3 mr-3" id="order">
+                    <div class="tab-pane fade table-responsive <!--show active--> mr-3" id="order">
                         <table class="table">
                             <thead class="thead-dark">
                             <tr>
@@ -180,29 +180,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">Набор Горяченькое-мини</th>
-                                <td>
-                                    <div class="input-group">
-                                        <select class="custom-select custom-quantity" id="inputGroupSelect04">
-                                            <option value="99">Удалить</option>
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td>764</td>
-                                <td>1528</td>
-                            </tr>
-
+                            <!-- Содержимое таблицы заполняется с помощью скрипта js/new_order.js, функция addRow -->
                             </tbody>
                         </table>
                     </div>
 
                     <!-- Второй блок - Детали -->
-                    <div class="tab-pane mt-3 mr-3 fade" id="details">
+                    <div class="tab-pane mr-3 fade" id="details">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01" style="width:180px">Филиал /
@@ -219,65 +203,65 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Телефон</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width:190px">
+                            {{ form.order_client_phone }}
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Имя</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width:190px">
+                            {{ form.order_client_name }}
                         </div>
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Улица</span>
                             </div>
-                            <input type="text" class="form-control" style="min-width:190px">
+                            {{ form.order_delivery_street }}
                         </div>
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Дом</span>
                             </div>
-                            <input type="text" class="form-control" style="max-width:75px">
+                            {{ form.order_delivery_house }}
                         </div>
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Подъезд</span>
                             </div>
-                            <input type="text" class="form-control" style="max-width:75px">
+                            {{ form.order_delivery_entrance }}
                         </div>
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Этаж</span>
                             </div>
-                            <input type="text" class="form-control" style="max-width:75px">
+                            {{ form.order_delivery_floor }}
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Кв. (офис)</span>
                             </div>
-                            <input type="text" class="form-control" style="max-width:75px">
+                            {{ form.order_delivery_flat }}
                         </div>
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="width:180px">Примечание</span>
                             </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            {{ form.order_comment }}
                         </div>
-
                     </div>
 
                     <!-- Третий блок - Отметки -->
-                    <div class="tab-pane mt-3 mr-3 fade" id="advanced">
-                        <!-- FIXME: дата не вставляется в поле -->
+                    <div class="tab-pane mr-3 fade active show" id="advanced">
                         <div class="input-group mb-3 ">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"
                                   style="width:180px">Предзаказ</span>
                             </div>
                             <div class="custom-file custom-calendar" style="min-width:190px">
-                                <input type="text" class="custom-file-input datepicker-here">
-                                <label class="custom-file-label"></label>
+                                <input type="text" class="form-control datepicker-here" data-timepicker="true"
+                                       data-min-hours="10" data-clear-button="true" data-auto-close="true"
+                                       data-minutes-step="5" data-toggle-selected="false" id="data-timepicker">
+                                <label class="input-group-text" for="data-timepicker"></label>
                             </div>
                             <div class="input-group-append">
                             <span class="input-group-text"><i
@@ -391,10 +375,10 @@
 
     <!-- Нижний блок -->
 <footer class="footer">
-    <div class="container-xl sticky-bottom">
+    <div class="container-xl">
         <div class="row  align-items-center pt-3 pb-3">
             <div class="col mt-1">
-                 <div class="input-group" style="width:150px">
+                <div class="input-group" style="width:150px">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect06">Приборы</label>
                     </div>
@@ -457,5 +441,22 @@
 </footer>
 </form>
 
+<script>
+function setHeiHeight() {
+var footerHeight = document.querySelector('footer').offsetHeight;
+var navBarHeight = document.querySelector('nav').offsetHeight;
+var tabsHeight = document.querySelector('#new-order-tabs').offsetHeight
+
+$('#order').css({
+    height: $(window).height() - footerHeight - navBarHeight - tabsHeight - 23 + 'px'
+});
+}
+setHeiHeight(); // устанавливаем высоту окна при первой загрузке страницы
+$(window).resize( setHeiHeight ); // обновляем при изменении размеров окна
+
+
+
+
+</script>
 </body>
 </html>

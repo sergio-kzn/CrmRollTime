@@ -31,49 +31,34 @@ class Item(models.Model):
     item_show = models.BooleanField('Видимость', default=True)
 
 
-class CurrentOrder(models.Model):
-    # вкладка Заказ
-    current_order_items = models.JSONField(verbose_name='Товары')
-    # вкладка Детали
-    current_order_branch = models.CharField(verbose_name='Филиал', max_length=100)
-    current_order_client_phone = models.CharField(verbose_name='Телефон Клиента', max_length=100)
-    current_order_client_name = models.CharField(verbose_name='Имя Клиента', max_length=100)
-    current_order_delivery_address = models.CharField(verbose_name='Адрес доставки', max_length=100)
-    current_order_comment = models.TextField(verbose_name='Комментарий')
-    # вкладка Отметки
-    current_order_date_time = models.DateTimeField(verbose_name='Время')
-    current_order_certificate = models.CharField(verbose_name='Сертификат', max_length=100)
-    current_order_learning_from = models.CharField(verbose_name='Узнали из', max_length=100)
-    current_order_payment = models.CharField(verbose_name='Оплата', max_length=100)
-    current_order_marks = models.JSONField(verbose_name='Отметки')
-    # Подвал
-    current_order_person = models.IntegerField('Приборы')
-    current_order_sale = models.JSONField(verbose_name='Скидка')
-
-
 class Order(models.Model):
     def __str__(self):
         return f'{self.order_id} {self.order_date_time}'
+    order_id = models.AutoField(primary_key=True)
     # вкладка Заказ
-    order_items = models.JSONField(verbose_name='Товары')
+    order_items = models.JSONField(verbose_name='Товары', blank=True, null=True)
     # вкладка Детали
-    order_branch = models.CharField(verbose_name='Филиал', max_length=100)
-    order_client_phone = models.CharField(verbose_name='Телефон Клиента', max_length=100)
-    order_client_name = models.CharField(verbose_name='Имя Клиента', max_length=100)
-    order_delivery_address = models.CharField(verbose_name='Адрес доставки', max_length=100)
-    order_comment = models.TextField(verbose_name='Комментарий')
+    order_branch = models.CharField(verbose_name='Филиал', max_length=100, blank=True)
+    order_client_phone = models.CharField(verbose_name='Телефон Клиента', max_length=15, blank=True)
+    order_client_name = models.CharField(verbose_name='Имя Клиента', max_length=100, blank=True)
+    order_delivery_street = models.CharField(verbose_name='Улица', max_length=100, blank=True, null=True)
+    order_delivery_house = models.CharField(verbose_name='Дом', max_length=10, blank=True, null=True)
+    order_delivery_entrance = models.CharField(verbose_name='Подъезд', max_length=10, blank=True, null=True)
+    order_delivery_floor = models.CharField(verbose_name='Этаж', max_length=10, blank=True, null=True)
+    order_delivery_flat = models.CharField(verbose_name='Квартира', max_length=10, blank=True, null=True)
+    order_comment = models.TextField(verbose_name='Комментарий', blank=True)
     # вкладка Отметки
     order_date_time = models.DateTimeField(verbose_name='Время')
-    order_certificate = models.CharField(verbose_name='Сертификат', max_length=100)
-    order_learning_from = models.CharField(verbose_name='Узнали из', max_length=100)
+    order_certificate = models.CharField(verbose_name='Сертификат', max_length=100, blank=True)
+    order_learning_from = models.CharField(verbose_name='Узнали из', max_length=100, blank=True)
     order_payment = models.CharField(verbose_name='Оплата', max_length=100)
     order_marks = models.JSONField(verbose_name='Отметки')
     # Подвал
-    order_person = models.IntegerField('Приборы')
-    order_sale = models.JSONField(verbose_name='Скидка')
-    order_price = models.IntegerField(verbose_name='Сумма')
+    order_person = models.IntegerField('Приборы', default=1)
+    order_sale = models.IntegerField(verbose_name='Скидка', default=0)
+    order_price = models.IntegerField(verbose_name='Сумма', default=0)
     # на странице Заказы
-    order_id = models.IntegerField(verbose_name="Номер заказа", unique=True)
-    order_status = models.CharField(verbose_name='Статус', max_length=100)
-    order_courier = models.CharField(verbose_name='Курьер', max_length=100)
-    order_history = models.JSONField(verbose_name='История')
+    order_number = models.IntegerField(verbose_name="Номер заказа", default=0)
+    order_status = models.CharField(verbose_name='Статус', max_length=100, blank=True)
+    order_courier = models.CharField(verbose_name='Курьер', max_length=100, blank=True)
+    order_history = models.JSONField(verbose_name='История', blank=True, null=True)

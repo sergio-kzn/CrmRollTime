@@ -1,8 +1,24 @@
-.custom-calendar .custom-file-label::after {
+.custom-calendar input {
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+.custom-calendar label {
+padding: 0;
+margin-left: -1px;
+border-radius: 0;
+}
+
+.custom-calendar label::after {
 font-family: "Font Awesome 5 Free";
     content: "\f073" !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+    color: #6c757d;
+    //border: 1px solid #6c757d;
+    text-align: center;
+    vertical-align: middle;
+    padding: .375rem .75rem;
     }
 
 .custom-quantity {
@@ -11,7 +27,7 @@ font-family: "Font Awesome 5 Free";
     }
 
 .footer{
-position: absolute;
+position: sticky;
     bottom: 0;
     width: 100%;
     z-index: 1020;
@@ -39,4 +55,8 @@ border-bottom: 0;
 .custom-list .list-group-item span {
   white-space: nowrap;
   float: right;
+}
+
+.overflow-scroll{
+overflow: scroll;
 }
