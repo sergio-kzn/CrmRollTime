@@ -1,7 +1,5 @@
-{% extends "new_order/base.html" %}
-
-{% block container %}
-<form method="post">
+{% extends "new_order/base.html" %} {% block script_in_head %}{% endblock %} {% block container %}
+<form method="post" action="" id="form_new_order_data">
     {% csrf_token %}
     <div class="container-xl">
         <div class="row  no-gutters">
@@ -24,36 +22,47 @@
                 <!-- Содержимое вкладок (левая колонка) -->
                 <div class="tab-content mt-3">
                     <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                    <div class="tab-pane fade table-responsive <!--show active--> mr-3" id="order">
-                        <table class="table">
+                    <div class="tab-pane fade table-responsive active show mr-3" id="order">
+                        <table class="table input_to_text">
                             <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Наим-е</th>
-                                <th scope="col">Кол-во</th>
-                                <th scope="col">Цена</th>
-                                <th scope="col">Сумма</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Наим-е</th>
+                                    <th scope="col">Кол-во</th>
+                                    <th scope="col">Цена</th>
+                                    <th scope="col">Сумма</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <!-- Содержимое таблицы заполняется с помощью скрипта js/new_order.js, функция addRow -->
+                                {{ formset.management_form }} {% for form in formset %}
+                                <tr>
+                                    <th>{{ form.order_item_item_id }}</th>
+                                    <td>{{ form.order_item_quantity }}
+                                    </td>
+                                    <td>{{ form.order_item_price }}</td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+
+
                             </tbody>
                         </table>
+
+                        <div id="empty_form" style="display:none">
+                            <table>
+                                <tbody>
+                                    {{ formset.empty_form }}
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Второй блок - Детали -->
                     <div class="tab-pane mr-3 fade" id="details">
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="order_branch" style="width:180px">Филиал /
-                                    Точка</label>
+                                <span class="input-group-text" style="width:180px">Филиал / Точка</span>
                             </div>
-                            <select class="custom-select" name="order_branch" id="order_branch" style="min-width:190px">
-                                {% for branch in branch_list %}
-                                <option value="{{ branch.id }}" {% if branch.branch_default %} selected {% endif %}>
-                                    {{ branch }}
-                                </option>
-                                {% endfor %}
-                            </select>
+                            {{ form.order_branch }}
                         </div>
 
                         <div class="input-group mb-1">
@@ -108,7 +117,7 @@
                     </div>
 
                     <!-- Третий блок - Отметки -->
-                    <div class="tab-pane mr-3 fade active show" id="advanced">
+                    <div class="tab-pane mr-3 fade" id="advanced">
                         <!-- {{ form.errors }}-->
                         <div class="input-group mb-3 ">
                             <div class="input-group-prepend">
@@ -120,10 +129,8 @@
                                 <label class="input-group-text" for="data-timepicker"></label>
                             </div>
                             <div class="input-group-append">
-                            <span class="input-group-text">
-                                <i class="far fa-question-circle ml-1 mr-1"
-                                   data-toggle="tooltip"
-                                   title="Позволяет создавать заказ на определенную дату.
+                                <span class="input-group-text">
+                                    <i class="far fa-question-circle ml-1 mr-1" data-toggle="tooltip" title="Позволяет создавать заказ на определенную дату.
 Предзаказ отображается как обычный заказ на дату предзаказа."></i></span>
                             </div>
                         </div>
@@ -135,11 +142,9 @@
                             {{ form.order_certificate }}
 
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Найти
-                                </button>
+                                <button class="btn btn-outline-secondary" type="button">Найти</button>
                                 <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
-                                                                  data-toggle="tooltip"
-                                                                  title="С помощью сертификата можно
+                                        data-toggle="tooltip" title="С помощью сертификата можно
                         добавлять в заказ подарки или товары с заданной ценой. Сертификаты создаются
                         в соответствующем справочнике."></i></span>
                             </div>
@@ -148,7 +153,7 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect02" style="width:180px">Узнали
+                                <label class="input-group-text" style="width:180px">Узнали
                                     из</label>
                             </div>
                             {{ form.order_learning_from }}
@@ -156,31 +161,21 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect03"
-                                       style="width:180px">Оплата</label>
+                                <label class="input-group-text" style="width:180px">Оплата</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect03" style="min-width:190px">
-                                <option selected></option>
-                                <option value="1">Нал.</option>
-                                <option value="2">Б/нал.</option>
-                                <option value="3">Мобильный банк</option>
-                                <option value="1">Агрегатор</option>
-                            </select>
+                            {{ form.order_payment }}
                         </div>
 
                         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                            <label class="btn btn-outline-primary">
-                                <input type="radio" name="options" id="option1"> Доставка
-                            </label>
-                            <label class="btn btn-outline-primary">
-                                <input type="radio" name="options" id="option2"> С собой
-                            </label>
-                            <label class="btn btn-outline-primary">
-                                <input type="radio" name="options" id="option3"> В зале
-                            </label>
-                            <label class="btn btn-outline-secondary col-1 active">
-                                <input type="radio" name="options" id="option4" checked> х
-                            </label>
+                            {% for mark in form.order_marks %}
+                            <label class="btn
+                                {% if mark.choice_label == 'x' %}
+                                btn-outline-secondary col-1 active
+                                {% else %}
+                                btn-outline-primary
+                                {% endif %}">
+                                {{ mark.tag }}{{ mark.choice_label }}
+                            </label> {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -189,12 +184,10 @@
             <!-- Блок с категориями - по центру -->
             <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
                 <ul class="nav nav-tabs mt-2 mb-1 flex-column">
-                    {% for category in category_list %}
-                    {% if category.category_show %}
+                    {% for category in category_list %} {% if category.category_show %}
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_{{ category.category_id}}">
-                        {{ category.category_name }}</a></li>
-                    {% endif %}
-                    {% endfor %}
+                            {{ category.category_name }}</a></li>
+                    {% endif %} {% endfor %}
                 </ul>
             </div>
 
@@ -202,23 +195,16 @@
             <div class="col-5 coll-md-5 overflow-auto">
                 <div class="tab-content custom-list mt-2">
                     <!-- FIXME: добавить класс active и show к первому div id -->
-                    {% for category in category_list %}
-                    {% if category.category_show %}
+                    {% for category in category_list %} {% if category.category_show %}
                     <div class="tab-pane fade" id="id_{{ category.category_id}}">
                         <div class="list-group">
-                            {% for item in item_list %}
-                            {% if item.item_category_id == category.category_id %}
-                            {% if item.item_show %}
-                            <a href="javascript://" onclick="addRow('{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
+                            {% for item in item_list %} {% if item.item_category_id == category.category_id %} {% if item.item_show %}
+                            <a href="javascript://" onclick="addRow('{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
                                 {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
-                            </a>
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
+                            </a> {% endif %} {% endif %} {% endfor %}
                         </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
+                    {% endif %} {% endfor %}
                 </div>
             </div>
         </div>
@@ -227,94 +213,57 @@
     </div>
 
     <!-- Нижний блок -->
-<footer class="footer">
-    <div class="container-xl">
-        <div class="row  align-items-center pt-3 pb-3">
-            <div class="col mt-1">
-                <div class="input-group" style="width:150px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect06">Приборы</label>
+    <footer class="footer">
+        <div class="container-xl">
+            <div class="row  align-items-center pt-3 pb-3">
+                <div class="col mt-1">
+                    <div class="input-group" style="width:150px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Приборы</span>
+                        </div>
+                        {{ form.order_person }}
                     </div>
-                    <select class="custom-select" id="inputGroupSelect06" style="padding-left:.5rem">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
                 </div>
-            </div>
-            <div class="col mt-1">
-               <div class="input-group" style="width:150px">
-                    <select class="custom-select" id="inputGroupSelect05">
-                        <option value="1" selected>Без скидки</option>
-                        <option value="2">-3%</option>
-                        <option value="3">-5%</option>
-                        <option value="4">-7%</option>
-                        <option value="5">-10%</option>
-                        <option value="6">-20%</option>
-                        <option value="7">-30%</option>
-                        <option value="8">-50%</option>
-                        <option value="9">-100%</option>
-                        <option value="10">Суммой</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col mt-1">
-                <div class="input-group" style="min-width:175px">
-                    <span class="alert alert-success mb-0">К оплате 259 руб.</span>
-                </div>
-            </div>
-
-            <div class="col mt-1">
-                <div class="input-group" style="min-width:170px">
-
-                    <div class="input-group-prepend">
-                        <button class="btn btn-success" type="submit"><i class="fas fa-cart-plus"></i> Сохранить
-                        </button>
+                <div class="col mt-1">
+                    <div class="input-group" style="width:150px">
+                        {{ form.order_sale }}
                     </div>
-                    <div class="input-group-append" id="button-addon4">
-                        <button class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+                </div>
+
+                <div class="col mt-1">
+                    <div class="input-group" style="min-width:175px">
+                        <span class="alert alert-success mb-0">К оплате <span id="total_price">0</span> руб.</span>
+                    </div>
+                </div>
+
+                <div class="col mt-1">
+                    <div class="input-group" style="min-width:170px">
+
+                        <div class="input-group-prepend">
+                            <button class="btn btn-success" type="submit"><i class="fas fa-cart-plus"></i> Сохранить
+                            </button>
+                        </div>
+                        <div class="input-group-append" id="button-addon4">
+                            <button class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 </form>
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script>
-function setHeiHeight() {
-var footerHeight = document.querySelector('footer').offsetHeight;
-var navBarHeight = document.querySelector('nav').offsetHeight;
-var tabsHeight = document.querySelector('#new-order-tabs').offsetHeight
+    function setHeiHeight() {
+        var footerHeight = document.querySelector('footer').offsetHeight;
+        var navBarHeight = document.querySelector('nav').offsetHeight;
+        var tabsHeight = document.querySelector('#new-order-tabs').offsetHeight
 
-$('#order').css({
-    height: $(window).height() - footerHeight - navBarHeight - tabsHeight - 23 + 'px'
-});
-}
-setHeiHeight(); // устанавливаем высоту окна при первой загрузке страницы
-$(window).resize( setHeiHeight ); // обновляем при изменении размеров окна
-
-
-
-
-
-
-
-
+        $('#order').css({
+            height: $(window).height() - footerHeight - navBarHeight - tabsHeight - 23 + 'px'
+        });
+    }
+    setHeiHeight(); // устанавливаем высоту окна при первой загрузке страницы
+    $(window).resize(setHeiHeight); // обновляем при изменении размеров окна
 </script>
 {% endblock %}

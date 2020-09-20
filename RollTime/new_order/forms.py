@@ -1,21 +1,33 @@
-from django.forms import ModelForm, TextInput, Textarea, Select
-from .models import Order, LearningFrom
+from django.forms import ModelForm, TextInput, Textarea, Select, RadioSelect, HiddenInput, modelformset_factory
+from .models import Order, OrderItem, Branch, LearningFrom, Payment, Sale
 
 
 class NewOrderForm(ModelForm):
+    """создаем инпуты <input>, которые связаны с базой данных Order и OrderItem.
+    используются в форме <form> на странице new_order.html"""
     class Meta:
-        choices_learning_from = tuple(LearningFrom.objects.values_list('id', 'learning_from_name'))
-        # choices_learning_from = tuple('')
+        model = Order
+
+        CHOICES_MARKS = ((2, 'Доставка'),
+                         (3, 'С собой'),
+                         (4, 'В зале'),
+                         (1, 'x'))
+        choices_persons = list()
+        for i in range(1, 16):
+            choices_persons.append((i, str(i)))
+        CHOICES_PERSONS = tuple(choices_persons)
 
         attrs_form_190 = {'class': 'form-control',
                           'style': 'min-width: 190px;'}
         attrs_form_75 = {'class': 'form-control',
                          'style': 'max-width: 75px;'}
+        attrs_select_pl = {'class': 'custom-select',
+                           'style': 'padding-left: .5rem'}
 
-        model = Order
         fields = '__all__'
-        labels = ''  # {'order_client_phone': ''}
-        widgets = {'order_client_phone': TextInput(attrs=attrs_form_190),
+        labels = ''
+        widgets = {'order_branch': Select(attrs=attrs_form_190),
+                   'order_client_phone': TextInput(attrs=attrs_form_190),
                    'order_client_name': TextInput(attrs=attrs_form_190),
                    'order_delivery_street': TextInput(attrs=attrs_form_190),
                    'order_delivery_house': TextInput(attrs=attrs_form_75),
@@ -35,4 +47,29 @@ class NewOrderForm(ModelForm):
                                                        'id': "data-timepicker"
                                                        }),
                    'order_certificate': TextInput(attrs={'class': 'form-control'}),
-                   'order_learning_from': Select(choices=choices_learning_from, attrs=attrs_form_190)}
+                   'order_learning_from': Select(attrs=attrs_form_190),
+                   'order_payment': Select(attrs=attrs_form_190),
+                   'order_marks': RadioSelect(choices=CHOICES_MARKS),
+                   'order_person': Select(choices=CHOICES_PERSONS, attrs=attrs_select_pl),
+                   'order_sale': Select(attrs={'class': 'custom-select'})
+                   }
+
+
+class ItemForm(ModelForm):
+    """создаем инпуты <input> для списка товаров, которые включаются в заказ"""
+    class Meta:
+        model = OrderItem
+
+        choices_item_quantity = list()
+        for i in range(1, 11):
+            choices_item_quantity.append((i, str(i)))
+        choices_item_quantity.append((99, 'Удалить'))
+        CHOICES_ITEM_QUANTITY = tuple(choices_item_quantity)
+
+        exclude = ('order_item_order_id',)
+        widgets = {
+            'order_item_item_id': Select(attrs={'scope': 'row'}),
+            'order_item_price': TextInput(attrs={'id': 'select_order_price'}),
+            'order_item_quantity': Select(choices=CHOICES_ITEM_QUANTITY, attrs={'id': 'select_order_quantity',
+                                                                                'onchange': 'calcSummOnChangeQuantity(this)'}),
+        }
