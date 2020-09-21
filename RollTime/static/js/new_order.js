@@ -5,7 +5,8 @@ addRow = function(item_id, item_name, item_price) {
     let total_form_num = $('#id_form-TOTAL_FORMS').val();
 
     let tbody = document.getElementById('order').getElementsByTagName("TBODY")[0];
-    let row = document.createElement("TR")
+    let row = document.createElement("TR");
+    row.setAttribute("id", "row_id_" + total_form_num);
 
     let td1 = document.createElement("TH")
     let input_item_name = document.getElementsByName("form-__prefix__-order_item_item_id")[0].cloneNode(true);
@@ -20,6 +21,13 @@ addRow = function(item_id, item_name, item_price) {
     let input_item_quantity = document.getElementsByName("form-__prefix__-order_item_quantity")[0].cloneNode(true);
     input_item_quantity.setAttribute("name", "form-" + total_form_num + "-order_item_quantity")
     td2.appendChild(input_item_quantity)
+
+    // <input type="checkbox" name="form-__prefix__-DELETE" id="id_form-__prefix__-DELETE">
+    let input_item_delete = document.getElementsByName("form-__prefix__-DELETE")[0].cloneNode(true);
+    input_item_delete.setAttribute("name", "form-" + total_form_num + "-DELETE");
+    input_item_delete.setAttribute("id", "id_form-" + total_form_num + "-DELETE");
+    input_item_delete.className = "d-none";
+    td2.appendChild(input_item_delete)
 
     // <input type="text" name="form-__prefix__-order_item_price" id="select_order_price" maxlength="10">
     let td3 = document.createElement("TD")
@@ -50,18 +58,29 @@ calcSummOnChangeQuantity = function(prefix) {
     // результат добавляется в form-N-order_item_summa
     prefix = $(prefix).attr("name").replace(/\D+/g, "");
 
-    let input_name_price = "form-" + prefix + "-order_item_price"
-    let input_form_price = document.getElementsByName(input_name_price)
-    let input_price = $(input_form_price).val()
+    let input_name_quantity = "form-" + prefix + "-order_item_quantity";
+    let input_form_quantity = document.getElementsByName(input_name_quantity);
+    let input_quantity = $(input_form_quantity).val();
 
-    let input_name_quantity = "form-" + prefix + "-order_item_quantity"
-    let input_form_quantity = document.getElementsByName(input_name_quantity)
-    let input_quantity = $(input_form_quantity).val()
+    let check_delete = 1
+    if (input_quantity == 99) {
+        let id_delete = "id_form-" + prefix + "-DELETE";
+        document.getElementById(id_delete).checked = true;
 
-    let input_name_sum = "form-" + prefix + "-order_item_sum"
-    let input_form_sum = document.getElementsByName(input_name_sum)
-    $(input_form_sum).val(input_price * input_quantity)
-    calcTotalPrice()
+        let row_id = "row_id_" + prefix;
+        document.getElementById(row_id).className = "d-none";
+
+        check_delete = 0;
+    };
+
+    let input_name_price = "form-" + prefix + "-order_item_price";
+    let input_form_price = document.getElementsByName(input_name_price);
+    let input_price = $(input_form_price).val();
+
+    let input_name_sum = "form-" + prefix + "-order_item_sum";
+    let input_form_sum = document.getElementsByName(input_name_sum);
+    $(input_form_sum).val(input_price * input_quantity * check_delete);
+    calcTotalPrice();
 };
 
 calcTotalPrice = function() {

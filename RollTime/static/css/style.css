@@ -15,7 +15,7 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     color: #6c757d;
-    //border: 1px solid #6c757d;
+    /* border: 1px solid #6c757d; */
     text-align: center;
     vertical-align: middle;
     padding: .375rem .75rem;
@@ -61,6 +61,10 @@
     overflow: scroll;
 }
 
+.input_to_text tbody tr {
+    transition: all .3s ease-in-out;
+}
+
 .input_to_text tbody td,
 .input_to_text tbody th {
     padding: 0;
@@ -72,6 +76,7 @@
     -moz-appearance: none;
     appearance: none;
     max-width: 260px;
+    margin-right: 5px;
 }
 
 .input_to_text .input_quantity select {

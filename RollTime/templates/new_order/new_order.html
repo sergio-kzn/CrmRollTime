@@ -34,9 +34,10 @@
                             </thead>
                             <tbody>
                                 {{ formset.management_form }} {% for form in formset %}
-                                <tr>
+                                <tr id="row_id_{{ forloop.counter0 }}">
                                     <th>{{ form.order_item_item_id }}</th>
-                                    <td>{{ form.order_item_quantity }}
+                                    <td>{{ form.order_item_quantity }} {% if formset.can_delete %}
+                                        <span class="d-none">{{ form.DELETE }}</span> {% endif %}
                                     </td>
                                     <td>{{ form.order_item_price }}</td>
                                     <td></td>

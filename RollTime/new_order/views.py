@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from .forms import *
+from .forms import NewOrderForm, ItemForm, modelformset_factory
+from .models import OrderItem
 
 from .services import prepare_context_for_html
 
 
 def new_order(request):
     """страница создания нового заказа"""
-    item_formset = modelformset_factory(OrderItem, form=ItemForm, extra=0)
+    item_formset = modelformset_factory(OrderItem, form=ItemForm, extra=0, can_delete=True)
 
     if request.method == 'POST':
         form = NewOrderForm(request.POST, auto_id=False)
