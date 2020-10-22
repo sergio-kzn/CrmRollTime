@@ -26,7 +26,9 @@ class NewOrderForm(ModelForm):
 
         fields = '__all__'
         labels = ''
-        widgets = {'order_branch': Select(attrs=attrs_form_190),
+        widgets = {
+                    'order_number': HiddenInput(),
+                    'order_branch': Select(attrs=attrs_form_190),
                    'order_client_phone': TextInput(attrs=attrs_form_190),
                    'order_client_name': TextInput(attrs=attrs_form_190),
                    'order_delivery_street': TextInput(attrs=attrs_form_190),
@@ -66,10 +68,15 @@ class ItemForm(ModelForm):
         choices_item_quantity.append((99, 'Удалить'))
         CHOICES_ITEM_QUANTITY = tuple(choices_item_quantity)
 
-        exclude = ('order_item_order_id',)
+        fields = '__all__'
+
         widgets = {
+            'order_item_order_number': HiddenInput(),
             'order_item_item_id': Select(attrs={'scope': 'row'}),
-            'order_item_price': TextInput(attrs={'id': 'select_order_price'}),
+            'order_item_price': TextInput(attrs={'id': 'select_order_price',
+                                                 'class': 'text-center'}),
             'order_item_quantity': Select(choices=CHOICES_ITEM_QUANTITY, attrs={'id': 'select_order_quantity',
                                                                                 'onchange': 'calcSummOnChangeQuantity(this)'}),
+            'order_item_summa': TextInput(attrs={'id': 'select_order_summa',
+                                                 'class': 'text-center'}),
         }

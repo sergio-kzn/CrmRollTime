@@ -1,12 +1,20 @@
 let form_num = 0;
 
-addRow = function(item_id, item_name, item_price) {
+addRow = function(order_number, item_id, item_name, item_price) {
     //функция добавляет товары из правого столбика в таблицу с новым заказом
     let total_form_num = $('#id_form-TOTAL_FORMS').val();
 
     let tbody = document.getElementById('order').getElementsByTagName("TBODY")[0];
     let row = document.createElement("TR");
     row.setAttribute("id", "row_id_" + total_form_num);
+
+    // <input type="hidden" name="form-__prefix__-order_item_order_number" id="id_form-__prefix__-order_item_order_number">
+    let input_order_number = document.getElementsByName("form-__prefix__-order_item_order_number")[0].cloneNode(true);
+    input_order_number.setAttribute("name", "form-" + total_form_num + "-order_item_order_number");
+    input_order_number.setAttribute("id", "id_form-" + total_form_num + "-order_item_order_number");
+    $(input_order_number).val(order_number)
+    row.appendChild(input_order_number)
+
 
     let td1 = document.createElement("TH")
     let input_item_name = document.getElementsByName("form-__prefix__-order_item_item_id")[0].cloneNode(true);
@@ -36,11 +44,12 @@ addRow = function(item_id, item_name, item_price) {
     $(input_item_price).val(item_price);
     td3.appendChild(input_item_price);
 
+    //<input type="text" name="form-__prefix__-order_item_summa" id="select_order_summa" maxlength="10">
     let td4 = document.createElement("TD");
-    let input_item_sum = document.createElement("INPUT");
-    input_item_sum.className = "item_sum";
-    input_item_sum.setAttribute("name", "form-" + total_form_num + "-order_item_sum");
-    td4.appendChild(input_item_sum);
+    let input_item_summa = document.getElementsByName("form-__prefix__-order_item_summa")[0].cloneNode(true);
+    input_item_summa.setAttribute("name", "form-" + total_form_num + "-order_item_summa");
+    input_item_summa.className = "item_sum";
+    td4.appendChild(input_item_summa);
 
     row.appendChild(td1);
     row.appendChild(td2);
@@ -77,9 +86,9 @@ calcSummOnChangeQuantity = function(prefix) {
     let input_form_price = document.getElementsByName(input_name_price);
     let input_price = $(input_form_price).val();
 
-    let input_name_sum = "form-" + prefix + "-order_item_sum";
-    let input_form_sum = document.getElementsByName(input_name_sum);
-    $(input_form_sum).val(input_price * input_quantity * check_delete);
+    let input_name_summa = "form-" + prefix + "-order_item_summa";
+    let input_form_summa = document.getElementsByName(input_name_summa);
+    $(input_form_summa).val(input_price * input_quantity * check_delete);
     calcTotalPrice();
 };
 

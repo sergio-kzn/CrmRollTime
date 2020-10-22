@@ -18,5 +18,6 @@
   "homepage": "https://github.com/sergio-kzn/CrmRollTime#readme",
   "devDependencies": {
     "browser-sync": "^2.26.12"
-  }
+  },
+  "dependencies": {}
 }

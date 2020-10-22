@@ -3,15 +3,12 @@ from django.db import models
 
 class Sale(models.Model):
     """список вариантов скидок"""
-
     class Meta:
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
         ordering = ['sale']
-
     def __str__(self):
         return f'{self.sale}'
-
     sale = models.CharField(verbose_name='Скидка', max_length=10)
 
 
@@ -125,13 +122,12 @@ class Order(models.Model):
         verbose_name_plural = "Заказы"
 
     def __str__(self):
-        return f'{self.order_id} {self.order_date_time}'
+        return self.order_number
 
-    order_id = models.AutoField(primary_key=True)
     # вкладка Детали
-    order_branch = models.ForeignKey(Branch, on_delete=models.CASCADE,
+    order_branch = models.ForeignKey(Branch, on_delete=models.DO_NOTHING,
                                      verbose_name='Филиал', blank=True, null=True)
-    # default=branch_default)
+    # FIXME: default=branch_default)
     order_client_phone = models.CharField(
         verbose_name='Телефон Клиента', max_length=15, blank=True)
     order_client_name = models.CharField(
@@ -152,24 +148,23 @@ class Order(models.Model):
         verbose_name='Дата и время заказа', blank=True, null=True)
     order_certificate = models.CharField(
         verbose_name='Сертификат', max_length=100, blank=True)
-    order_learning_from = models.ForeignKey(LearningFrom, on_delete=models.CASCADE,
+    order_learning_from = models.ForeignKey(LearningFrom, on_delete=models.DO_NOTHING,
                                             verbose_name='Узнали из', blank=True, null=True)
-    order_payment = models.ForeignKey(Payment, on_delete=models.CASCADE,
+    order_payment = models.ForeignKey(Payment, on_delete=models.DO_NOTHING,
                                       verbose_name='Оплата', blank=True, null=True)
     order_marks = models.CharField(
         verbose_name='Отметки', max_length=100, blank=True)
     # Подвал
     order_person = models.CharField(
         'Приборы', max_length=10, blank=True)
-    order_sale = models.ForeignKey(Sale, on_delete=models.CASCADE,
+    order_sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING,
                                    verbose_name='Скидка', blank=True, null=True)
     order_sale_count = models.CharField(
         verbose_name='Скидка в рублях', max_length=10, blank=True)
     order_price = models.CharField(
         verbose_name='Сумма', max_length=10, blank=True)
     # на странице Заказы
-    order_number = models.IntegerField(
-        verbose_name="Номер заказа", blank=True, null=True)
+    order_number = models.IntegerField(verbose_name="Номер заказа")
     order_status = models.CharField(
         verbose_name='Статус', max_length=100, blank=True)
     order_courier = models.CharField(
@@ -180,11 +175,13 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """список товаров, прикрепленных к заказу"""
-    order_item_order_id = models.ForeignKey(
-        Order, on_delete=models.CASCADE, verbose_name='Номер заказа', blank=True, null=True)
+    order_item_order_number = models.ForeignKey(
+        Order, on_delete=models.DO_NOTHING, verbose_name='Номер заказа', null=True, blank=True)
     order_item_item_id = models.ForeignKey(
-        Item, on_delete=models.CASCADE, verbose_name='Товары в заказе')
+        Item, on_delete=models.DO_NOTHING, verbose_name='Товары в заказе')
     order_item_price = models.CharField(
         verbose_name='Цена', max_length=10,)
     order_item_quantity = models.CharField(
         verbose_name='Кол-во', max_length=10, blank=True)
+    order_item_summa = models.CharField(
+        verbose_name='Сумма', max_length=10,)

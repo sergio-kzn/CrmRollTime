@@ -1,4 +1,4 @@
-from .models import Category, Item
+from .models import Category, Item, Order
 import datetime as dt
 
 
@@ -24,6 +24,10 @@ def prepare_context_for_html(form, formset):
     context = {'category_list': category_list,
                'item_list': item_list,
                'form': form,
-               'formset': formset}
+               'formset': formset,
+               }
 
     return context
+
+def create_new_order(form, formset):
+    pass

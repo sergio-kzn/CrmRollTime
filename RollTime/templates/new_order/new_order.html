@@ -1,6 +1,28 @@
-{% extends "new_order/base.html" %} {% block script_in_head %}{% endblock %} {% block container %}
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    {{ form.order_number.value }}
+{% endblock title %}
+
+
+{% block custom_head %}
+<link rel="stylesheet" href='{% static "css/new_order.css" %}'>
+<script>
+    // сплывающие подсказки
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<script src='{% static "js/new_order.js" %}'></script>
+{% endblock %}
+
+
+{% block container %}
 <form method="post" action="" id="form_new_order_data">
     {% csrf_token %}
+{{ form.order_number }}
     <div class="container-xl">
         <div class="row  no-gutters">
 
@@ -27,20 +49,25 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Наим-е</th>
-                                    <th scope="col">Кол-во</th>
+                                    <th scope="col" nowrap>Кол-во</th>
                                     <th scope="col">Цена</th>
                                     <th scope="col">Сумма</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{ formset.management_form }} {% for form in formset %}
+                                {{ formset.management_form }}
+                                {% for f in formset %}
                                 <tr id="row_id_{{ forloop.counter0 }}">
-                                    <th>{{ form.order_item_item_id }}</th>
-                                    <td>{{ form.order_item_quantity }} {% if formset.can_delete %}
-                                        <span class="d-none">{{ form.DELETE }}</span> {% endif %}
+                                    {{ f.order_item_order_number }}
+                                    <th>{{ f.order_item_item_id }}</th>
+                                    <td class="input_quantity">
+                                        {{ f.order_item_quantity }}
+                                        {% if formset.can_delete %}
+                                            <span class="d-none">{{ f.DELETE }}</span>
+                                        {% endif %}
                                     </td>
-                                    <td>{{ form.order_item_price }}</td>
-                                    <td></td>
+                                    <td>{{ f.order_item_price }}</td>
+                                    <td>{{ f.order_item_summa }}</td>
                                 </tr>
                                 {% endfor %}
 
@@ -200,7 +227,7 @@
                     <div class="tab-pane fade" id="id_{{ category.category_id}}">
                         <div class="list-group">
                             {% for item in item_list %} {% if item.item_category_id == category.category_id %} {% if item.item_show %}
-                            <a href="javascript://" onclick="addRow('{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
+                            <a href="javascript://" onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
                                 {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
                             </a> {% endif %} {% endif %} {% endfor %}
                         </div>
