@@ -6,10 +6,12 @@ class Sale(models.Model):
     class Meta:
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
-        ordering = ['sale']
+        ordering = ['order', 'sale']
     def __str__(self):
         return f'{self.sale}'
+
     sale = models.CharField(verbose_name='Скидка', max_length=10)
+    sale_order = models.IntegerField(verbose_name='Сортировка', default=0)
 
 
 class Payment(models.Model):
@@ -171,12 +173,12 @@ class Order(models.Model):
         verbose_name='Курьер', max_length=100, blank=True)
     order_history = models.JSONField(
         verbose_name='История', blank=True, null=True)
+    order_deleted = models.BooleanField(verbose_name="Заказ удален", default=False)
 
 
 class OrderItem(models.Model):
     """список товаров, прикрепленных к заказу"""
-    order_item_order_number = models.ForeignKey(
-        Order, on_delete=models.DO_NOTHING, verbose_name='Номер заказа', null=True, blank=True)
+    order_item_order_number = models.IntegerField(verbose_name='Номер заказа')
     order_item_item_id = models.ForeignKey(
         Item, on_delete=models.DO_NOTHING, verbose_name='Товары в заказе')
     order_item_price = models.CharField(

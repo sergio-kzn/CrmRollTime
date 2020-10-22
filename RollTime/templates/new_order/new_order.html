@@ -213,7 +213,7 @@
             <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
                 <ul class="nav nav-tabs mt-2 mb-1 flex-column">
                     {% for category in category_list %} {% if category.category_show %}
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#id_{{ category.category_id}}">
+                    <li class="nav-item"><a class="nav-link {% if forloop.counter == 1 %}active{% endif %}" data-toggle="tab" href="#id_{{ category.category_id}}">
                             {{ category.category_name }}</a></li>
                     {% endif %} {% endfor %}
                 </ul>
@@ -222,9 +222,8 @@
             <!-- Блок с товарам - справа -->
             <div class="col-5 coll-md-5 overflow-auto">
                 <div class="tab-content custom-list mt-2">
-                    <!-- FIXME: добавить класс active и show к первому div id -->
                     {% for category in category_list %} {% if category.category_show %}
-                    <div class="tab-pane fade" id="id_{{ category.category_id}}">
+                    <div class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}" id="id_{{ category.category_id}}">
                         <div class="list-group">
                             {% for item in item_list %} {% if item.item_category_id == category.category_id %} {% if item.item_show %}
                             <a href="javascript://" onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">

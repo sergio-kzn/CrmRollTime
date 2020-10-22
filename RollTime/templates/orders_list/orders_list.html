@@ -1,1 +1,87 @@
-{% extends "base.html" %} {% block script_in_head %}{% endblock %} {% block container %}{% endblock %}
+{% extends "base.html" %}
+
+
+{% block title %}{% endblock title %}
+
+
+{% block script_in_head %}{% endblock %}
+
+
+{% block container %}
+    <div class="container p-0 small">
+
+        {% for order in orders %}
+            {% if not order.order_deleted %}
+            <div class="card w-100 my-2">
+                <div class="card-header row mx-0 align-items-center">
+
+                    <!-- время и номер заказа -->
+                    <div class="col-2">
+                    {{ order.order_date_time }}
+                    №: {{ order.order_number }}
+                    </div>
+
+                    <!-- Изменить и печать -->
+                    <div class="col">
+                    <a class="btn btn-outline-secondary" role="button" href="#">Изменить</a>
+                    <a class="btn btn-outline-secondary" role="button" href="#">Печать</a>
+                    </div>
+
+                    <!-- Доставка и статус -->
+                    <div class="col text-right">
+                    Сотрудник:
+                    {{ order.order_courier }}
+                    {{ order.order_status }}
+                    </div>
+
+                </div>
+                <div class="card-body px-0 py-1">
+                    <div class="row justify-content-start m-0">
+
+                        <!-- Список товаров -->
+                        <div class="col px-1">
+                        <ul class="list-group  list-group-flush">
+                            {% for order_item in order_items %}
+                                {% if order_item.order_item_order_number == order.order_number %}
+                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-0">
+                                        <span class="text-truncate" style="width: 200px"
+                                        data-toggle="tooltip" data-html="true" title="{{ order_item.order_item_item_id.item_name }}
+Цена: {{ order_item.order_item_price }}
+Кол-во: {{ order_item.order_item_quantity }}
+Сумма: {{ order_item.order_item_summa }}">
+                                            {{ order_item.order_item_item_id.item_name }}</span>
+                                        <span class="badge badge-secondary badge-pill mx-1">
+                                    {{ order_item.order_item_quantity }}
+                                        </span>
+                                    {{ order_item.order_item_summa }}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        </div>
+
+                        <!-- Сумма заказа -->
+                        <div class="col-1 border-left px-1">{{ order.order_price }}</div>
+
+                        <div class="col-1 border-left px-1">{{ order.order_payment }}</div>
+
+                        <div class="col-1 border-left px-1">{{ order.order_delivery_entrance }}</div>
+
+                        <div class="col border-left px-1">{{ order.order_client_phone }}</div>
+
+                        <div class="col-1 border-left px-1 text-center"><button type="button" class="btn btn-outline-danger  btn-sm">Х</button></div>
+                    </div>
+                </div>
+
+                <!-- комментарий к заказу -->
+                {% if order.order_comment %}
+                <div class="card-footer text-muted">
+                    {{ order.order_comment }}
+                </div>
+                {% endif %}
+
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

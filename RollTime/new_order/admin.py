@@ -20,13 +20,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class OrderItemsInline(admin.TabularInline):
     """Настройка отображения раздела Заказы (список товаров)"""
-    model = OrderItem
-    extra = 0
+    # model = OrderItem
+    # extra = 0
+    pass
 
 class OrderAdmin(admin.ModelAdmin):
     """Настройка отображения раздела Заказы"""
     list_display = ['order_number', 'order_status', 'order_date_time', 'order_price']
-    inlines = [OrderItemsInline]
+    # inlines = [OrderItemsInline]
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Item)
