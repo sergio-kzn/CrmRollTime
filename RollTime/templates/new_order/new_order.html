@@ -187,21 +187,36 @@
                             {{ form.order_learning_from }}
                         </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" style="width:180px">Оплата</label>
-                            </div>
-                            {{ form.order_payment }}
-                        </div>
+                        {#                        <div class="input-group mb-3">#}
+                        {#                            <div class="input-group-prepend">#}
+                        {#                                <label class="input-group-text" style="width:180px">Оплата</label>#}
+                        {#                            </div>#}
+                        {#                            {{ form.order_payment }}#}
+                        {#                        </div>#}
 
                         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                            {% for mark in form.order_marks %}
-                            <label class="btn
-                                {% if mark.choice_label == 'x' %}
+                            {% for pay in form.order_payment %}
+                                <label class="btn
+                                {% if forloop.last %}
                                 btn-outline-secondary col-1 active
                                 {% else %}
                                 btn-outline-primary
-                                {% endif %}">
+                                {% endif %}"
+                                for="{{ pay.id_for_label }}">
+                                {{ pay.tag }}{{ pay.choice_label }}
+                                </label> {% endfor %}
+                        </div>
+
+
+                        <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                            {% for mark in form.order_marks %}
+                                <label class="btn
+                                {% if forloop.last %}
+                                btn-outline-secondary col-1 active
+                                {% else %}
+                                btn-outline-primary
+                                {% endif %}"
+                                for="{{ mark.id_for_label }}">
                                 {{ mark.tag }}{{ mark.choice_label }}
                             </label> {% endfor %}
                         </div>
@@ -258,6 +273,7 @@
                 </div>
 
                 <div class="col mt-1">
+                    {{ form.order_price }}
                     <div class="input-group" style="min-width:175px">
                         <span class="alert alert-success mb-0">К оплате <span id="total_price">0</span> руб.</span>
                     </div>

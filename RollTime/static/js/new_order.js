@@ -99,4 +99,5 @@ calcTotalPrice = function() {
     });
 
     $('#total_price').html(sum)
+    document.getElementsByName('order_price')[0].value = sum;
 };

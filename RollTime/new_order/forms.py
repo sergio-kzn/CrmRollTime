@@ -50,10 +50,11 @@ class NewOrderForm(ModelForm):
                                                        }),
                    'order_certificate': TextInput(attrs={'class': 'form-control'}),
                    'order_learning_from': Select(attrs=attrs_form_190),
-                   'order_payment': Select(attrs=attrs_form_190),
+                   'order_payment': RadioSelect(attrs=attrs_form_190),
                    'order_marks': RadioSelect(choices=CHOICES_MARKS),
                    'order_person': Select(choices=CHOICES_PERSONS, attrs=attrs_select_pl),
-                   'order_sale': Select(attrs={'class': 'custom-select'})
+                   'order_sale': Select(attrs={'class': 'custom-select'}),
+            'order_price': HiddenInput(),
                    }
 
 
@@ -72,7 +73,8 @@ class ItemForm(ModelForm):
 
         widgets = {
             'order_item_order_number': HiddenInput(),
-            'order_item_item_id': Select(attrs={'scope': 'row'}),
+            'order_item_item_id': Select(attrs={'scope': 'row',
+                                         'class': 'bg-white'}),
             'order_item_price': TextInput(attrs={'id': 'select_order_price',
                                                  'class': 'text-center'}),
             'order_item_quantity': Select(choices=CHOICES_ITEM_QUANTITY, attrs={'id': 'select_order_quantity',

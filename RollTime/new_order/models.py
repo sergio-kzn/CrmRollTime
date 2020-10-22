@@ -6,7 +6,7 @@ class Sale(models.Model):
     class Meta:
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
-        ordering = ['order', 'sale']
+        ordering = ['sale_order', 'sale']
     def __str__(self):
         return f'{self.sale}'
 
@@ -20,12 +20,14 @@ class Payment(models.Model):
     class Meta:
         verbose_name = "Оплата"
         verbose_name_plural = "Варианты оплаты"
+        ordering = ['payment_sort']
 
     def __str__(self):
         return f'{self.payment_name}'
 
     payment_name = models.CharField(
         verbose_name='Название', max_length=100, blank=True)
+    payment_sort = models.IntegerField(verbose_name='Сортировка', default=0)
     payment_api = models.CharField(
         verbose_name='API', max_length=10, blank=True, null=True)
 
@@ -153,14 +155,14 @@ class Order(models.Model):
     order_learning_from = models.ForeignKey(LearningFrom, on_delete=models.DO_NOTHING,
                                             verbose_name='Узнали из', blank=True, null=True)
     order_payment = models.ForeignKey(Payment, on_delete=models.DO_NOTHING,
-                                      verbose_name='Оплата', blank=True, null=True)
+                                      verbose_name='Оплата', default=99)
     order_marks = models.CharField(
         verbose_name='Отметки', max_length=100, blank=True)
     # Подвал
     order_person = models.CharField(
-        'Приборы', max_length=10, blank=True)
+        'Приборы', max_length=10, default=1)
     order_sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING,
-                                   verbose_name='Скидка', blank=True, null=True)
+                                   verbose_name='Скидка', default=1)
     order_sale_count = models.CharField(
         verbose_name='Скидка в рублях', max_length=10, blank=True)
     order_price = models.CharField(

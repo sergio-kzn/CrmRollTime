@@ -2,7 +2,6 @@ from django.utils import timezone
 from loguru import logger
 
 from .models import Category, Item, Order
-import datetime as dt
 
 
 def check_date_time(date_time_from_post):
@@ -10,7 +9,7 @@ def check_date_time(date_time_from_post):
     если дата не введена, то возвращает текущие дату и время
     """
     if date_time_from_post is None:
-        # logger.info('Новая Дата {}', dt.datetime.now())
+        logger.info('Новая Дата {}', timezone.now())
         return timezone.now()
     else:
         logger.info('Старая Дата {}', date_time_from_post)
@@ -45,9 +44,11 @@ def create_new_order(form, formset) -> bool:
 
     if form.is_valid() and formset.is_valid():
         logger.success("form is valid")
+
         f = form.save(commit=False)
         f.order_date_time = check_date_time(form.cleaned_data['order_date_time'])
         f.save()
+        logger.success("form is saved")
 
 
         logger.success("formset is valid")

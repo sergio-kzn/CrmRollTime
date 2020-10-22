@@ -4,7 +4,7 @@ from new_order.models import Order, OrderItem
 
 
 def orders_list(request):
-    orders = Order.objects.all().order_by('-order_number')
+    orders = Order.objects.all().order_by('-order_date_time', '-order_number')
     order_items = OrderItem.objects.all()
     context = {
         'orders': orders,

@@ -13,18 +13,18 @@
         {% for order in orders %}
             {% if not order.order_deleted %}
             <div class="card w-100 my-2">
-                <div class="card-header row mx-0 align-items-center">
+                <div class="card-header row align-items-center mx-0 px-1">
 
                     <!-- время и номер заказа -->
-                    <div class="col-2">
-                    {{ order.order_date_time }}
+                    <div class="col-3 p-0">
+                    {{ order.order_date_time }}<br>
                     №: {{ order.order_number }}
                     </div>
 
                     <!-- Изменить и печать -->
                     <div class="col">
-                    <a class="btn btn-outline-secondary" role="button" href="#">Изменить</a>
-                    <a class="btn btn-outline-secondary" role="button" href="#">Печать</a>
+                    <a class="btn btn-outline-secondary btn-sm" role="button" href="#">Изменить</a>
+                    <a class="btn btn-outline-secondary btn-sm" role="button" href="#">Печать</a>
                     </div>
 
                     <!-- Доставка и статус -->
@@ -61,7 +61,7 @@
                         </div>
 
                         <!-- Сумма заказа -->
-                        <div class="col-1 border-left px-1">{{ order.order_price }}</div>
+                        <div class="col-1 border-left px-1 text-center">{{ order.order_price }}</div>
 
                         <div class="col-1 border-left px-1">{{ order.order_payment }}</div>
 
@@ -69,7 +69,7 @@
 
                         <div class="col border-left px-1">{{ order.order_client_phone }}</div>
 
-                        <div class="col-1 border-left px-1 text-center"><button type="button" class="btn btn-outline-danger  btn-sm">Х</button></div>
+                        <div class="col-1 border-left px-1 text-center"><button type="button" class="btn btn-outline-danger btn-sm">Х</button></div>
                     </div>
                 </div>
 

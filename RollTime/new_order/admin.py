@@ -29,10 +29,23 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_number', 'order_status', 'order_date_time', 'order_price']
     # inlines = [OrderItemsInline]
 
+
+class SaleAdmin(admin.ModelAdmin):
+    list_display = ['sale', 'sale_order']
+    list_editable = ['sale_order']
+
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['payment_name', 'payment_api', 'payment_sort']
+    list_editable = ['payment_api', 'payment_sort']
+
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Item)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Color)
 admin.site.register(Branch)
 admin.site.register(LearningFrom)
-admin.site.register(Sale)
+admin.site.register(Sale, SaleAdmin)
+admin.site.register(Payment, PaymentAdmin)
