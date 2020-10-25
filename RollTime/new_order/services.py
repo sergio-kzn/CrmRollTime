@@ -1,3 +1,5 @@
+import contextlib
+
 from django.utils import timezone
 from loguru import logger
 
@@ -12,7 +14,7 @@ def check_date_time(date_time_from_post):
         logger.info('Новая Дата {}', timezone.now())
         return timezone.now()
     else:
-        logger.info('Старая Дата {}', date_time_from_post)
+        logger.info('Оставляем старую Дата {}', date_time_from_post)
         return date_time_from_post
 
 
@@ -34,11 +36,13 @@ def prepare_context_for_html(form, formset):
 
 
 @logger.catch
-def create_new_order(form, formset) -> bool:
+def create_or_edit_order(form, formset, order_id=0) -> bool:
     """
-    функиця проверят формы и сохраняет данные в бд
+    функиця проверят формы и добавляет новый заказ
     :param form: форма с данными заказа
     :param formset: набор форм с товарами в заказе
+    :param order_id: Передайте id заказа для его редактирования,
+                или ничего не передавайте для создания нового заказа
     :return: Возвращает True - если все формы прошли валидацию
     """
 
@@ -47,6 +51,9 @@ def create_new_order(form, formset) -> bool:
 
         f = form.save(commit=False)
         f.order_date_time = check_date_time(form.cleaned_data['order_date_time'])
+        if order_id != 0:
+            f.id = order_id
+
         f.save()
         logger.success("form is saved")
 
@@ -81,8 +88,7 @@ def create_new_order_number() -> int:
 def payment_default() -> int:
     """Возвращает id варианта оплаты со значение сортировки 99"""
 
-    try:
+    with contextlib.suppress(Exception):
         payments = Payment.objects.get(payment_sort=99)
         return payments.id
-    except Exception:
-        return 1
+    return 1

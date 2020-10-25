@@ -4,7 +4,12 @@
 {% block title %}{% endblock title %}
 
 
-{% block script_in_head %}{% endblock %}
+{% block custom_head %}
+<!-- всплывающие подсказки -->
+<script>
+    $(function () {$('[data-toggle="tooltip"]').tooltip()})
+</script>
+{% endblock %}
 
 
 {% block container %}
@@ -13,7 +18,7 @@
         {% for order in orders %}
             {% if not order.order_deleted %}
             <div class="card w-100 my-2">
-                <div class="card-header row align-items-center mx-0 px-1">
+                <div class="card-header row align-items-center mx-0 p-1">
 
                     <!-- время и номер заказа -->
                     <div class="col-3 p-0">
@@ -23,7 +28,8 @@
 
                     <!-- Изменить и печать -->
                     <div class="col">
-                    <a class="btn btn-outline-secondary btn-sm" role="button" href="#">Изменить</a>
+                    <a class="btn btn-outline-secondary btn-sm" role="button"
+                       href="{% url 'new_order:edit_order_url' order.id %}">Изменить</a>
                     <a class="btn btn-outline-secondary btn-sm" role="button" href="#">Печать</a>
                     </div>
 
@@ -45,10 +51,10 @@
                                 {% if order_item.order_item_order_number == order.order_number %}
                                     <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-0">
                                         <span class="text-truncate" style="width: 200px"
-                                        data-toggle="tooltip" data-html="true" title="{{ order_item.order_item_item_id.item_name }}
-Цена: {{ order_item.order_item_price }}
-Кол-во: {{ order_item.order_item_quantity }}
-Сумма: {{ order_item.order_item_summa }}">
+                                        data-toggle="tooltip" data-html="true" title="{{ order_item.order_item_item_id.item_name }}<br><br>
+                                            Цена: {{ order_item.order_item_price }}<br>
+                                            Кол-во: {{ order_item.order_item_quantity }}<br>
+                                            Сумма: {{ order_item.order_item_summa }}">
                                             {{ order_item.order_item_item_id.item_name }}</span>
                                         <span class="badge badge-secondary badge-pill mx-1">
                                     {{ order_item.order_item_quantity }}
@@ -63,7 +69,8 @@
                         <!-- Сумма заказа -->
                         <div class="col-1 border-left px-1 text-center">{{ order.order_price }}</div>
 
-                        <div class="col-1 border-left px-1">{{ order.order_payment }}</div>
+                        <!-- Вариант оплаты -->
+                        <div class="col-1 border-left px-1 text-center">{{ order.order_payment }}</div>
 
                         <div class="col-1 border-left px-1">{{ order.order_delivery_entrance }}</div>
 

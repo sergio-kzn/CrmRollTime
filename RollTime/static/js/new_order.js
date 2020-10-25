@@ -49,7 +49,6 @@ addRow = function(order_number, item_id, item_name, item_price) {
     let td4 = document.createElement("TD");
     let input_item_summa = document.getElementsByName("form-__prefix__-order_item_summa")[0].cloneNode(true);
     input_item_summa.setAttribute("name", "form-" + total_form_num + "-order_item_summa");
-    input_item_summa.className = "item_sum";
     td4.appendChild(input_item_summa);
 
     row.appendChild(td1);
@@ -73,7 +72,7 @@ calcSumOnChangeQuantity = function(prefix) {
     let input_quantity = $(input_form_quantity).val();
 
     let check_delete = 1
-    if (input_quantity === 99) {
+    if (Number(input_quantity) === 99) {
         let id_delete = "id_form-" + prefix + "-DELETE";
         document.getElementById(id_delete).checked = true;
 
@@ -96,10 +95,11 @@ calcSumOnChangeQuantity = function(prefix) {
 calcTotalPrice = function() {
     // подсчет суммы всего заказа, отображается в нижней панели
     let sum = 0;
-    $('.item_sum').each(function() {
-        sum += parseInt($(this).val());
-    });
+    let items = document.getElementsByClassName('item_sum')
+    for (let i=0; i < items.length; i++) {
+        sum += Number(items[i].value);
+    }
 
-    $('#total_price').html(sum)
+    document.getElementById('total_price').innerHTML = sum.toString();
     document.getElementsByName('order_price')[0].value = sum;
 };

@@ -9,75 +9,85 @@
 
 {% block custom_head %}
 <link rel="stylesheet" href='{% static "css/new_order.css" %}'>
-<script>
-    // сплывающие подсказки
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-<script src='{% static "js/new_order.js" %}'></script>
+
+    <!-- всплывающие подсказки -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}
 
 
 {% block container %}
-<form method="post" action="" id="form_new_order_data">
-    {% csrf_token %}
-{{ form.order_number }}
-    <div class="container-xl">
-        <div class="row  no-gutters">
+    <form method="post" action="" id="form_new_order_data">
+        {% csrf_token %}
+        {{ form.order_number }}
+        <div class="container-lg">
+            <div class="row">
 
-            <!-- Блок Новый заказ - слева -->
-            <div class="col-5 col-md-5">
-                <!-- Вкладки -->
-                <ul class="nav nav-tabs mt-2" id="new-order-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#details">Детали доставки</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
-                    </li>
-                </ul>
+                <!-- Блок Новый заказ - слева -->
+                <div class="col pr-1 flex-grow-0">
+                    <!-- Вкладки -->
+                    <ul class="nav nav-tabs mt-2" id="new-order-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#details">Детали доставки</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
+                        </li>
+                    </ul>
 
-                <!-- Содержимое вкладок (левая колонка) -->
-                <div class="tab-content mt-3">
-                    <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
-                    <div class="tab-pane fade table-responsive active show mr-3" id="order">
-                        <table class="table input_to_text">
-                            <thead class="thead-dark">
+                    <!-- Содержимое вкладок (левая колонка) -->
+                    <div class="tab-content mt-3" style="width: 450px">
+                        <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
+                        <div class="tab-pane fade active show mr-3" id="order">
+                            <table class="table input_to_text">
+                                <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Наим-е</th>
+                                    <th scope="col">Наименование</th>
                                     <th scope="col" nowrap>Кол-во</th>
                                     <th scope="col">Цена</th>
                                     <th scope="col">Сумма</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {{ formset.management_form }}
                                 {% for f in formset %}
-                                <tr id="row_id_{{ forloop.counter0 }}">
-                                    {{ f.order_item_order_number }}
-                                    <th>{{ f.order_item_item_id }}</th>
-                                    <td class="input_quantity">
-                                        {{ f.order_item_quantity }}
-                                        {% if formset.can_delete %}
-                                            <span class="d-none">{{ f.DELETE }}</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ f.order_item_price }}</td>
-                                    <td>{{ f.order_item_summa }}</td>
-                                </tr>
+                                    <tr id="row_id_{{ forloop.counter0 }}">
+                                        {{ f.order_item_order_number }}
+                                        <th scope="row">{{ f.order_item_item_id }}</th>
+                                        <td class="input_quantity">
+                                            {{ f.order_item_quantity }}
+                                            {% if formset.can_delete %}
+                                                <span class="d-none">{{ f.DELETE }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ f.order_item_price }}</td>
+                                        <td class="text-center">{{ f.order_item_summa }}</td>
+                                    </tr>
                                 {% endfor %}
+                                </tbody>
+                            </table>
+                                    {% for dict in formset.errors %}
+                                        {% for error in dict.values %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    {% endfor %}
 
+                        {% for form in formset %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    <!-- form.visible fields go here -->
+{% endfor %}
 
-                            </tbody>
-                        </table>
-
-                        <div id="empty_form" style="display:none">
-                            <table>
-                                <tbody>
+                            <div id="empty_form" style="display:none">
+                                <table>
+                                    <tbody>
                                     {{ formset.empty_form }}
                             </table>
                         </div>
@@ -214,64 +224,85 @@
                                 {% else %}
                                 btn-outline-primary
                                 {% endif %}"
-                                for="{{ mark.id_for_label }}">
-                                {{ mark.tag }}{{ mark.choice_label }}
-                            </label> {% endfor %}
+                                       for="{{ mark.id_for_label }}">
+                                    {{ mark.tag }}{{ mark.choice_label }}
+                                </label> {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <!-- Поиск -->
+                    <div class="row">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-label="Поиск">
+                            <div class="input-group-append">
+                                <span class="input-group-text">Найти</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <!-- Блок с категориями - по центру -->
+                        <div class="col px-0 bg-light custom-nav flex-grow-0" style="width: 143px">
+                            <ul class="nav nav-tabs mt-2 mb-1 flex-column">
+                                {% for category in category_list %} {% if category.category_show %}
+                                    <li class="nav-item"><a
+                                            class="nav-link mx-0 px-1 {% if forloop.counter == 1 %}active{% endif %}"
+                                            data-toggle="tab" href="#id_{{ category.category_id }}">
+                                        {{ category.category_name }}</a></li>
+                                {% endif %} {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Блок с товарам - справа -->
+                        <div class="col pr-0">
+                            <div class="tab-content custom-list mt-2">
+                                {% for category in category_list %} {% if category.category_show %}
+                                    <div class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}"
+                                         id="id_{{ category.category_id }}">
+                                        <div class="list-group">
+                                            {% for item in item_list %}
+                                                {% if item.item_category_id == category.category_id %}
+                                                    {% if item.item_show %}
+                                                        <a href="javascript://"
+                                                           onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;"
+                                                           class="list-group-item list-group-item-action">
+                                                            {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
+                                                        </a> {% endif %} {% endif %} {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %} {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Блок с категориями - по центру -->
-            <div class="col-2 col-md-2 bg-light custom-nav overflow-auto">
-                <ul class="nav nav-tabs mt-2 mb-1 flex-column">
-                    {% for category in category_list %} {% if category.category_show %}
-                    <li class="nav-item"><a class="nav-link {% if forloop.counter == 1 %}active{% endif %}" data-toggle="tab" href="#id_{{ category.category_id}}">
-                            {{ category.category_name }}</a></li>
-                    {% endif %} {% endfor %}
-                </ul>
-            </div>
 
-            <!-- Блок с товарам - справа -->
-            <div class="col-5 coll-md-5 overflow-auto">
-                <div class="tab-content custom-list mt-2">
-                    {% for category in category_list %} {% if category.category_show %}
-                    <div class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}" id="id_{{ category.category_id}}">
-                        <div class="list-group">
-                            {% for item in item_list %} {% if item.item_category_id == category.category_id %} {% if item.item_show %}
-                            <a href="javascript://" onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;" class="list-group-item list-group-item-action">
-                                {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
-                            </a> {% endif %} {% endif %} {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %} {% endfor %}
-                </div>
-            </div>
         </div>
 
-
-    </div>
-
-    <!-- Нижний блок -->
-    <footer class="footer">
-        <div class="container-xl">
-            <div class="row  align-items-center pt-3 pb-3">
-                <div class="col mt-1">
-                    <div class="input-group" style="width:150px">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Приборы</span>
+        <!-- Нижний блок -->
+        <footer class="footer">
+            <div class="container-xl">
+                <div class="row  align-items-center pt-3 pb-3">
+                    <div class="col mt-1">
+                        <div class="input-group" style="width:150px">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Приборы</span>
+                            </div>
+                            {{ form.order_person }}
                         </div>
-                        {{ form.order_person }}
                     </div>
-                </div>
-                <div class="col mt-1">
-                    <div class="input-group" style="width:150px">
-                        {{ form.order_sale }}
+                    <div class="col mt-1">
+                        <div class="input-group" style="width:150px">
+                            {{ form.order_sale }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="col mt-1">
-                    {{ form.order_price }}
+                    <div class="col mt-1">
+                        {{ form.order_price }}
                     <div class="input-group" style="min-width:175px">
                         <span class="alert alert-success mb-0">К оплате <span id="total_price">0</span> руб.</span>
                     </div>
@@ -289,14 +320,16 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
-    </footer>
-</form>
+        </footer>
+    </form>
 {% endblock %}
 
 
 {% block scripts %}
+    <script src='{% static "js/new_order.js" %}'></script>
+
     <script>
         function setHeiHeight() {
             let footerHeight = document.querySelector('footer').offsetHeight;

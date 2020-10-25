@@ -28,6 +28,7 @@ class NewOrderForm(ModelForm):
         fields = '__all__'
         labels = ''
         widgets = {
+            'id': HiddenInput(),
             'order_number': HiddenInput(),
             'order_branch': Select(attrs=attrs_form_190),
             'order_client_phone': TextInput(attrs=attrs_form_190),
@@ -76,12 +77,12 @@ class ItemForm(ModelForm):
         widgets = {
             'order_item_order_number': HiddenInput(),
             'order_item_item_id': Select(attrs={'scope': 'row',
-                                                'class': 'bg-white'}),
+                                                'class': 'bg-white small',
+                                                'style': 'white-space: pre-wrap;'
+                                                         'max-width: 180px'}),
             'order_item_price': TextInput(attrs={'id': 'select_order_price',
                                                  'class': 'text-center'}),
             'order_item_quantity': Select(choices=CHOICES_ITEM_QUANTITY,
-                                          attrs={'id': 'select_order_quantity',
-                                                 'onchange': 'calcSumOnChangeQuantity(this)'}),
-            'order_item_summa': TextInput(attrs={'id': 'select_order_summa',
-                                                 'class': 'text-center'}),
+                                          attrs={'onchange': 'calcSumOnChangeQuantity(this)'}),
+            'order_item_summa': TextInput(attrs={'class': 'item_sum text-right'}),
         }
