@@ -24,6 +24,7 @@ class OrderItemsInline(admin.TabularInline):
     # extra = 0
     pass
 
+
 class OrderAdmin(admin.ModelAdmin):
     """Настройка отображения раздела Заказы"""
     list_display = ['order_number', 'order_status', 'order_date_time', 'order_price']
@@ -38,7 +39,6 @@ class SaleAdmin(admin.ModelAdmin):
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ['payment_name', 'payment_api', 'payment_sort']
     list_editable = ['payment_api', 'payment_sort']
-
 
 
 admin.site.register(Category, CategoryAdmin)

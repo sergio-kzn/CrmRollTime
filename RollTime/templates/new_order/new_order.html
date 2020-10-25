@@ -34,7 +34,7 @@
                         <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#details">Детали</a>
+                        <a class="nav-link" data-toggle="tab" href="#details">Детали доставки</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#advanced">Отметки</a>
@@ -196,15 +196,13 @@
 
                         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
                             {% for pay in form.order_payment %}
-                                <label class="btn
+                                <label for="{{ pay.id_for_label }}" class="btn
                                 {% if forloop.last %}
-                                btn-outline-secondary col-1 active
+                                btn-outline-secondary col-1
                                 {% else %}
                                 btn-outline-primary
-                                {% endif %}"
-                                for="{{ pay.id_for_label }}">
-                                {{ pay.tag }}{{ pay.choice_label }}
-                                </label> {% endfor %}
+                                {% endif %}">{{ pay.tag }}{{ pay.choice_label }}</label>
+                            {% endfor %}
                         </div>
 
 
@@ -295,18 +293,22 @@
         </div>
     </footer>
 </form>
-{% endblock %} {% block scripts %}
-<script>
-    function setHeiHeight() {
-        var footerHeight = document.querySelector('footer').offsetHeight;
-        var navBarHeight = document.querySelector('nav').offsetHeight;
-        var tabsHeight = document.querySelector('#new-order-tabs').offsetHeight
+{% endblock %}
 
-        $('#order').css({
-            height: $(window).height() - footerHeight - navBarHeight - tabsHeight - 23 + 'px'
-        });
-    }
-    setHeiHeight(); // устанавливаем высоту окна при первой загрузке страницы
-    $(window).resize(setHeiHeight); // обновляем при изменении размеров окна
-</script>
+
+{% block scripts %}
+    <script>
+        function setHeiHeight() {
+            let footerHeight = document.querySelector('footer').offsetHeight;
+            let navBarHeight = document.querySelector('nav').offsetHeight;
+            let tabsHeight = document.querySelector('#new-order-tabs').offsetHeight
+
+            $('#order').css({
+                height: $(window).height() - footerHeight - navBarHeight - tabsHeight - 23 + 'px'
+            });
+        }
+
+        setHeiHeight(); // устанавливаем высоту окна при первой загрузке страницы
+        $(window).resize(setHeiHeight); // обновляем при изменении размеров окна
+    </script>
 {% endblock %}

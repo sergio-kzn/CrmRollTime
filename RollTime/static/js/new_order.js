@@ -1,8 +1,9 @@
-let form_num = 0;
+// let form_num = 0;
 
 addRow = function(order_number, item_id, item_name, item_price) {
     //функция добавляет товары из правого столбика в таблицу с новым заказом
-    let total_form_num = $('#id_form-TOTAL_FORMS').val();
+    let total_form = $('#id_form-TOTAL_FORMS');
+    let total_form_num = total_form.val();
 
     let tbody = document.getElementById('order').getElementsByTagName("TBODY")[0];
     let row = document.createElement("TR");
@@ -59,10 +60,10 @@ addRow = function(order_number, item_id, item_name, item_price) {
 
     $(input_item_quantity).change(); // считаем сумму
     total_form_num++;
-    $('#id_form-TOTAL_FORMS').val(total_form_num);
+    total_form.val(total_form_num);
 }
 
-calcSummOnChangeQuantity = function(prefix) {
+calcSumOnChangeQuantity = function(prefix) {
     // считает сумму, перемножая количество товара на цену.
     // результат добавляется в form-N-order_item_summa
     prefix = $(prefix).attr("name").replace(/\D+/g, "");
@@ -72,7 +73,7 @@ calcSummOnChangeQuantity = function(prefix) {
     let input_quantity = $(input_form_quantity).val();
 
     let check_delete = 1
-    if (input_quantity == 99) {
+    if (input_quantity === 99) {
         let id_delete = "id_form-" + prefix + "-DELETE";
         document.getElementById(id_delete).checked = true;
 
@@ -80,7 +81,7 @@ calcSummOnChangeQuantity = function(prefix) {
         document.getElementById(row_id).className = "d-none";
 
         check_delete = 0;
-    };
+    }
 
     let input_name_price = "form-" + prefix + "-order_item_price";
     let input_form_price = document.getElementsByName(input_name_price);
@@ -93,7 +94,8 @@ calcSummOnChangeQuantity = function(prefix) {
 };
 
 calcTotalPrice = function() {
-    var sum = 0;
+    // подсчет суммы всего заказа, отображается в нижней панели
+    let sum = 0;
     $('.item_sum').each(function() {
         sum += parseInt($(this).val());
     });

@@ -1,7 +1,7 @@
 from django.utils import timezone
 from loguru import logger
 
-from .models import Category, Item, Order
+from .models import Category, Item, Order, Payment
 
 
 def check_date_time(date_time_from_post):
@@ -50,7 +50,6 @@ def create_new_order(form, formset) -> bool:
         f.save()
         logger.success("form is saved")
 
-
         logger.success("formset is valid")
         formset.save()
         return True
@@ -66,7 +65,9 @@ def create_new_order(form, formset) -> bool:
     return False
 
 
-def create_new_order_number():
+def create_new_order_number() -> int:
+    """Функция возвращет номер для создания нового заказа"""
+
     order_numbers = Order.objects.all().only('order_number')
     new_order_number = 0
 
@@ -75,3 +76,13 @@ def create_new_order_number():
             new_order_number = order_number.order_number
     new_order_number += 1
     return new_order_number
+
+
+def payment_default() -> int:
+    """Возвращает id варианта оплаты со значение сортировки 99"""
+
+    try:
+        payments = Payment.objects.get(payment_sort=99)
+        return payments.id
+    except Exception:
+        return 1
