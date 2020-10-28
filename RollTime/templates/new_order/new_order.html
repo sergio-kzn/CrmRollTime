@@ -20,15 +20,27 @@
 
 
 {% block container %}
+        <div class="container-lg">
+            <div class="row mt-1">
+                <div class="col pr-0">
+                    <div class="progress" style="height: 10px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                             aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 2%" id="progress-main"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100" id="progress-delivery" style="width: 1%" ></div>
+                    </div>
+                </div> <!-- /.col -->
+            </div>
+            </div>
+
     <form method="post" action="" id="form_new_order_data">
         {% csrf_token %}
         {{ form.order_number }}
         <div class="container-lg">
             <div class="row">
 
-                <!-- Блок Новый заказ - слева -->
+                <!-- НОВЫЙ ЗАКАЗ - слева -->
                 <div class="col pr-1 flex-grow-0">
-                    <!-- Вкладки -->
                     <ul class="nav nav-tabs mt-2" id="new-order-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#order">Заказ</a>
@@ -41,11 +53,10 @@
                         </li>
                     </ul>
 
-                    <!-- Содержимое вкладок (левая колонка) -->
                     <div class="tab-content mt-3" style="width: 450px">
-                        <!-- Первый блок - Заказ (он отображается по умолчанию, т.к. имеет классы show и active) -->
+                        <!-- Вкладка - Заказ -->
                         <div class="tab-pane fade active show mr-3" id="order">
-                            <table class="table input_to_text">
+                            <table class="table input_to_text" id="table-for-goods">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Наименование</th>
@@ -72,143 +83,143 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-                                    {% for dict in formset.errors %}
-                                        {% for error in dict.values %}
-                                            {{ error }}
-                                        {% endfor %}
-                                    {% endfor %}
 
-                        {% for form in formset %}
-    {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-    {% endfor %}
-    <!-- form.visible fields go here -->
-{% endfor %}
+                            {% comment "раскомментировать, что бы показывать ошибки при заполнении форм и скрытые формы" %}
 
+                            {% for dict in formset.errors %}
+                                {% for error in dict.values %}
+                                    {{ error }}
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% for form in formset %}
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                                <!-- form.visible fields go here -->
+                            {% endfor %}
+
+
+                        {% endcomment %}
+
+                            <!-- Пустая форма -->
                             <div id="empty_form" style="display:none">
                                 <table>
                                     <tbody>
                                     {{ formset.empty_form }}
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Второй блок - Детали -->
-                    <div class="tab-pane mr-3 fade" id="details">
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Филиал / Точка</span>
+                                </table>
                             </div>
-                            {{ form.order_branch }}
+
                         </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Телефон</span>
+                        <!-- Вкладка - Детали -->
+                        <div class="tab-pane mr-3 fade" id="details">
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Филиал / Точка</span>
+                                </div>
+                                {{ form.order_branch }}
                             </div>
-                            {{ form.order_client_phone }}
+
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Телефон</span>
+                                </div>
+                                {{ form.order_client_phone }}
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Имя</span>
+                                </div>
+                                {{ form.order_client_name }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Улица</span>
+                                </div>
+                                {{ form.order_delivery_street }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Дом</span>
+                                </div>
+                                {{ form.order_delivery_house }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Подъезд</span>
+                                </div>
+                                {{ form.order_delivery_entrance }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Этаж</span>
+                                </div>
+                                {{ form.order_delivery_floor }}
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Кв. (офис)</span>
+                                </div>
+                                {{ form.order_delivery_flat }}
+                            </div>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Примечание</span>
+                                </div>
+                                {{ form.order_comment }}
+                            </div>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Имя</span>
-                            </div>
-                            {{ form.order_client_name }}
-                        </div>
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Улица</span>
-                            </div>
-                            {{ form.order_delivery_street }}
-                        </div>
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Дом</span>
-                            </div>
-                            {{ form.order_delivery_house }}
-                        </div>
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Подъезд</span>
-                            </div>
-                            {{ form.order_delivery_entrance }}
-                        </div>
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Этаж</span>
-                            </div>
-                            {{ form.order_delivery_floor }}
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Кв. (офис)</span>
-                            </div>
-                            {{ form.order_delivery_flat }}
-                        </div>
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Примечание</span>
-                            </div>
-                            {{ form.order_comment }}
-                        </div>
-                    </div>
-
-                    <!-- Третий блок - Отметки -->
-                    <div class="tab-pane mr-3 fade" id="advanced">
-                        <!-- {{ form.errors }}-->
-                        <div class="input-group mb-3 ">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Предзаказ</span>
-                            </div>
-                            <div class="custom-file custom-calendar" style="min-width:190px">
-                                {{ form.order_date_time }}
-                                <!--suppress XmlInvalidId -->
-                                <label class="input-group-text" for="data-timepicker"></label>
-                            </div>
-                            <div class="input-group-append">
+                        <!-- Вкладка - Отметки -->
+                        <div class="tab-pane mr-3 fade" id="advanced">
+                            <!-- {{ form.errors }} -->
+                            <div class="input-group mb-3 ">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Предзаказ</span>
+                                </div>
+                                <div class="custom-file custom-calendar" style="min-width:190px">
+                                    {{ form.order_date_time }}
+                                    <!--suppress XmlInvalidId -->
+                                    <label class="input-group-text" for="data-timepicker"></label>
+                                </div>
+                                <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="far fa-question-circle ml-1 mr-1" data-toggle="tooltip" title="Позволяет создавать заказ на определенную дату.
 Предзаказ отображается как обычный заказ на дату предзаказа."></i></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:180px">Сертификат</span>
-                            </div>
-                            {{ form.order_certificate }}
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:180px">Сертификат</span>
+                                </div>
+                                {{ form.order_certificate }}
 
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">Найти</button>
-                                <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
-                                        data-toggle="tooltip" title="С помощью сертификата можно
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">Найти</button>
+                                    <span class="input-group-text"><i class="far fa-question-circle ml-1 mr-1"
+                                                                      data-toggle="tooltip" title="С помощью сертификата можно
                         добавлять в заказ подарки или товары с заданной ценой. Сертификаты создаются
                         в соответствующем справочнике."></i></span>
+                                </div>
                             </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:180px">Узнали
+                                        из</label>
+                                </div>
+                                {{ form.order_learning_from }}
                         </div>
-
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" style="width:180px">Узнали
-                                    из</label>
-                            </div>
-                            {{ form.order_learning_from }}
-                        </div>
-
-                        {#                        <div class="input-group mb-3">#}
-                        {#                            <div class="input-group-prepend">#}
-                        {#                                <label class="input-group-text" style="width:180px">Оплата</label>#}
-                        {#                            </div>#}
-                        {#                            {{ form.order_payment }}#}
-                        {#                        </div>#}
 
                         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
                             {% for pay in form.order_payment %}
                                 <label for="{{ pay.id_for_label }}" class="btn
                                 {% if forloop.last %}
-                                btn-outline-secondary col-1
+                                btn-outline-secondary col-1 active
                                 {% else %}
                                 btn-outline-primary
                                 {% endif %}">{{ pay.tag }}{{ pay.choice_label }}</label>
@@ -228,15 +239,15 @@
                                     {{ mark.tag }}{{ mark.choice_label }}
                                 </label> {% endfor %}
                         </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <!-- Поиск -->
-                    <div class="row">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="Поиск">
+                    <div class="row my-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Поиск" placeholder="Поиск">
                             <div class="input-group-append">
                                 <span class="input-group-text">Найти</span>
                             </div>
@@ -244,7 +255,7 @@
                     </div>
                     <div class="row">
 
-                        <!-- Блок с категориями - по центру -->
+                        <!-- КАТЕГОРИИ - по центру -->
                         <div class="col px-0 bg-light custom-nav flex-grow-0" style="width: 143px">
                             <ul class="nav nav-tabs mt-2 mb-1 flex-column">
                                 {% for category in category_list %} {% if category.category_show %}
@@ -256,34 +267,36 @@
                             </ul>
                         </div>
 
-                        <!-- Блок с товарам - справа -->
+                        <!-- ТОВАРЫ - справа -->
                         <div class="col pr-0">
                             <div class="tab-content custom-list mt-2">
-                                {% for category in category_list %} {% if category.category_show %}
-                                    <div class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}"
-                                         id="id_{{ category.category_id }}">
-                                        <div class="list-group">
-                                            {% for item in item_list %}
-                                                {% if item.item_category_id == category.category_id %}
-                                                    {% if item.item_show %}
-                                                        <a href="javascript://"
-                                                           onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;"
-                                                           class="list-group-item list-group-item-action">
-                                                            {{ item.item_name }} <span>{{ item.item_price }} руб.</span>
-                                                        </a> {% endif %} {% endif %} {% endfor %}
+                                {% for category in category_list %}
+                                    {% if category.category_show %}
+                                        <div class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}"
+                                             id="id_{{ category.category_id }}">
+                                            <div class="list-group">
+                                                {% for item in item_list %}
+                                                    {% if item.item_category_id == category.category_id %}
+                                                        {% if item.item_show %}
+                                                            <a href="javascript://"
+                                                               onclick="addRow('{{ form.order_number.value }}', '{{ item.item_id }}', '{{ item.item_name }}', '{{ item.item_price }}'); return false;"
+                                                               class="list-group-item list-group-item-action">
+                                                                {{ item.item_name }}
+                                                                <span>{{ item.item_price }} руб.</span>
+                                                            </a> {% endif %} {% endif %} {% endfor %}
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endif %} {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
         </div>
 
-        <!-- Нижний блок -->
+        <!-- ПОДВАЛ -->
         <footer class="footer">
             <div class="container-xl">
                 <div class="row  align-items-center pt-3 pb-3">
@@ -328,6 +341,7 @@
 
 
 {% block scripts %}
+    <script src="{% static '/js/progress_bar.js' %}"></script>
     <script src='{% static "js/new_order.js" %}'></script>
 
     <script>

@@ -4,15 +4,16 @@
 {% block title %}{% endblock title %}
 
 
-{% block custom_head %}
-<!-- всплывающие подсказки -->
-<script>
-    $(function () {$('[data-toggle="tooltip"]').tooltip()})
-</script>
-{% endblock %}
+{% block custom_head %}{% endblock %}
 
 
 {% block container %}
+    <!-- Панель фильтров -->
+    <div class="container p-0 small">
+
+    </div>
+
+    <!-- Список заказов -->
     <div class="container p-0 small">
 
         {% for order in orders %}
@@ -82,13 +83,23 @@
 
                 <!-- комментарий к заказу -->
                 {% if order.order_comment %}
-                <div class="card-footer text-muted">
-                    {{ order.order_comment }}
-                </div>
+                    <div class="card-footer text-muted">
+                        {{ order.order_comment }}
+                    </div>
                 {% endif %}
 
             </div>
             {% endif %}
         {% endfor %}
     </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <!-- всплывающие подсказки -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}

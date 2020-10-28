@@ -60,6 +60,10 @@ addRow = function(order_number, item_id, item_name, item_price) {
     $(input_item_quantity).change(); // считаем сумму
     total_form_num++;
     total_form.val(total_form_num);
+
+    //прибавляем приборы
+    let person = document.getElementsByName('order_person')[0];
+    // fixme: person.selectedIndex++;
 }
 
 calcSumOnChangeQuantity = function(prefix) {
@@ -90,6 +94,7 @@ calcSumOnChangeQuantity = function(prefix) {
     let input_form_summa = document.getElementsByName(input_name_summa);
     $(input_form_summa).val(input_price * input_quantity * check_delete);
     calcTotalPrice();
+    change_progress_from_items(); // обновляем прогрессбар
 };
 
 calcTotalPrice = function() {
