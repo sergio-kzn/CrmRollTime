@@ -156,10 +156,9 @@ class Order(models.Model):
         verbose_name='Сертификат', max_length=100, blank=True)
     order_learning_from = models.ForeignKey(LearningFrom, on_delete=models.DO_NOTHING,
                                             verbose_name='Узнали из', blank=True, null=True)
-    order_payment = models.ForeignKey(Payment, on_delete=models.DO_NOTHING,
-                                      verbose_name='Оплата')
-    order_marks = models.CharField(
-        verbose_name='Отметки', max_length=100, blank=True)
+    # order_payment = models.ForeignKey(Payment, on_delete=models.DO_NOTHING, verbose_name='Оплата')
+    order_payment = models.CharField(verbose_name='Оплата', max_length=100, blank=True)
+    order_marks = models.CharField(verbose_name='Отметки', max_length=100, blank=True)
     # Подвал
     order_person = models.CharField(
         'Приборы', max_length=10, default=1)

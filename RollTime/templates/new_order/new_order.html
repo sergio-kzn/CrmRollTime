@@ -91,16 +91,16 @@
                                     {{ error }}
                                 {% endfor %}
                             {% endfor %}
+                        {% endcomment %}
 
+                            <!-- form.visible fields go here -->
                             {% for form in formset %}
                                 {% for hidden in form.hidden_fields %}
                                     {{ hidden }}
                                 {% endfor %}
-                                <!-- form.visible fields go here -->
                             {% endfor %}
 
 
-                        {% endcomment %}
 
                             <!-- Пустая форма -->
                             <div id="empty_form" style="display:none">
@@ -213,32 +213,34 @@
                                         из</label>
                                 </div>
                                 {{ form.order_learning_from }}
-                        </div>
+                            </div>
 
-                        <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                            {% for pay in form.order_payment %}
-                                <label for="{{ pay.id_for_label }}" class="btn
-                                {% if forloop.last %}
-                                btn-outline-secondary col-1 active
-                                {% else %}
-                                btn-outline-primary
-                                {% endif %}">{{ pay.tag }}{{ pay.choice_label }}</label>
-                            {% endfor %}
-                        </div>
-
-
-                        <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                            {% for mark in form.order_marks %}
-                                <label class="btn
+                            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                                {% for pay in form.order_payment %}
+                                    <label class="btn
                                 {% if forloop.last %}
                                 btn-outline-secondary col-1 active
                                 {% else %}
                                 btn-outline-primary
                                 {% endif %}"
-                                       for="{{ mark.id_for_label }}">
-                                    {{ mark.tag }}{{ mark.choice_label }}
-                                </label> {% endfor %}
-                        </div>
+                                           for="{{ pay.id_for_label }}">
+                                        {{ pay.tag }}{{ pay.choice_label }}</label>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                                {% for mark in form.order_marks %}
+                                    <label class="btn
+                                {% if forloop.last %}
+                                btn-outline-secondary col-1 active
+                                {% else %}
+                                btn-outline-primary
+                                {% endif %}"
+                                           for="{{ mark.id_for_label }}">
+                                        {{ mark.tag }}{{ mark.choice_label }}</label>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>

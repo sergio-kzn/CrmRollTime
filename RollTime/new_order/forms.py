@@ -1,5 +1,5 @@
 from django.forms import ModelForm, TextInput, Textarea, Select, RadioSelect, HiddenInput, modelformset_factory
-from .models import Order, OrderItem
+from .models import Order, OrderItem, Payment
 
 
 class NewOrderForm(ModelForm):
@@ -13,6 +13,13 @@ class NewOrderForm(ModelForm):
                          (3, 'С собой'),
                          (4, 'В зале'),
                          (1, 'x'))
+
+        # CHOICES_PAYMENTS = Payment.objects.all().only('id')
+        CHOICES_PAYMENTS = ((2, 'Нал.'),
+                         (3, 'Б / нал.'),
+                         (4, 'On-line'),
+                         (1, 'x'))
+
         choices_persons = list()
         for i in range(1, 16):
             choices_persons.append((i, str(i)))
@@ -52,8 +59,8 @@ class NewOrderForm(ModelForm):
                                                 }),
             'order_certificate': TextInput(attrs={'class': 'form-control'}),
             'order_learning_from': Select(attrs=attrs_form_190),
-            'order_payment': RadioSelect(attrs=attrs_form_190),
-            'order_marks': RadioSelect(choices=CHOICES_MARKS,),
+            'order_payment': RadioSelect(choices=CHOICES_PAYMENTS),
+            'order_marks': RadioSelect(choices=CHOICES_MARKS),
             'order_person': Select(choices=CHOICES_PERSONS, attrs=attrs_select_pl),
             'order_sale': Select(attrs={'class': 'custom-select'}),
             'order_price': HiddenInput(),

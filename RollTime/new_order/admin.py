@@ -12,10 +12,17 @@ class ItemsInstanceInline(admin.TabularInline):
 
 class CategoryAdmin(admin.ModelAdmin):
     """настройка отображения раздела Категории"""
-    readonly_fields = ['category_id']
+    list_display = ['category_name', 'category_show', 'count', 'category_sort']
+    list_editable = ['category_sort']
     fields = ['category_id', 'category_name', 'category_show', 'category_sort']
-    list_display = ['category_name', 'category_show', 'category_sort']
+    readonly_fields = ['category_id', 'count']
     inlines = [ItemsInstanceInline]
+
+    def count(self, obj):
+        return Item.objects.filter(item_category=obj).count()
+
+    count.short_description = 'Кол-во'
+
 
 
 class OrderItemsInline(admin.TabularInline):

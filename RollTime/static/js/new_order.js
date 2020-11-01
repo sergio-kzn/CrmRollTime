@@ -24,11 +24,12 @@ addRow = function(order_number, item_id, item_name, item_price) {
     $(input_item_name).val(item_id);
     td1.appendChild(input_item_name);
 
-    //<select name="form-__prefix__-order_item_quantity" id="select_order_quantity" maxlength="10">
+    //<select name="form-__prefix__-order_item_quantity" onchange="calcSumOnChangeQuantity(this)" maxlength="10" id="id_form-__prefix__-order_item_quantity">
     let td2 = document.createElement("TD")
     td2.className = "input_quantity";
     let input_item_quantity = document.getElementsByName("form-__prefix__-order_item_quantity")[0].cloneNode(true);
     input_item_quantity.setAttribute("name", "form-" + total_form_num + "-order_item_quantity")
+    input_item_quantity.setAttribute("id", "id_form-" + total_form_num + "-order_item_quantity")
     td2.appendChild(input_item_quantity)
 
     // <input type="checkbox" name="form-__prefix__-DELETE" id="id_form-__prefix__-DELETE">
